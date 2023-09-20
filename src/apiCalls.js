@@ -56,3 +56,28 @@ fetch('http://localhost:3001/api/v1/bookings')
 });
 
 
+export const postBooking = (user, date, room) => {
+  return fetch("http://localhost:3001/api/v1/bookings", {
+    method: 'POST',
+    body: JSON.stringify({
+      userID: user.id,
+      date: date,
+      roomNumber: room.number
+    }),
+    headers: {
+        'Content-Type': 'application/json'
+    }
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`Post failure, status code: ${response.status}`);
+    }
+    return response.json()
+  })
+  .catch((error) => {
+    console.error("Error sending POST request:", error);
+    throw error;
+  });
+}
+
+
