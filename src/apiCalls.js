@@ -81,3 +81,21 @@ export const postBooking = (user, date, room) => {
 }
 
 
+export const deleteBooking = (bookingID) => {
+  return fetch(`http://localhost:3001/api/v1/bookings/${bookingID}`, {
+    method: 'DELETE',
+    headers: {
+        'Content-Type': 'application/json'
+    }
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`Delete failure, status code: ${response.status}`);
+    }
+    return response.json()
+  })
+  .catch((error) => {
+    console.error("Error sending DELETE request:", error);
+    throw error;
+  });
+}
