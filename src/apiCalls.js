@@ -28,3 +28,17 @@ fetch('http://localhost:3001/api/v1/rooms')
 });
 
 
+export const getSingleCustomer = (customerID) => 
+  fetch(`http://localhost:3001/api/v1/customers/${customerID}`)
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`Fetch failure: ${response.status}`);
+    }
+    return response.json();
+  })
+  .catch((error) => {
+    console.error("Error fetching customer:", error);
+    throw error;
+  })
+
+
