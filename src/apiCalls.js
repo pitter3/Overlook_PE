@@ -14,3 +14,17 @@ fetch('http://localhost:3001/api/v1/customers')
 });
 
 
+export const getRooms = 
+fetch('http://localhost:3001/api/v1/rooms')
+.then((response) => {
+  if (!response.ok) {
+    throw new Error(`Fetch failure, status code: ${response.status}`);
+  }
+  return response.json()
+})
+.catch((error) => {
+  console.error('Error fetching rooms:', error)
+  throw error
+});
+
+
