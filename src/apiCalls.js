@@ -42,3 +42,17 @@ export const getSingleCustomer = (customerID) =>
   })
 
 
+export const getBookings = 
+fetch('http://localhost:3001/api/v1/bookings')
+.then((response) => {
+  if (!response.ok) {
+    throw new Error(`Fetch failure, status code: ${response.status}`);
+  }
+  return response.json()
+})
+.catch((error) => {
+  console.error('Error fetching rooms:', error)
+  throw error
+});
+
+
