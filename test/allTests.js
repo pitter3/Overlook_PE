@@ -57,3 +57,68 @@ describe("Find the total amount a customer has spent on rooms", () => {
 });
 
 
+describe("Find the total amount a customer has spent on rooms", () => {
+  it("should return a number based on a given array of room IDs", () => {
+    const result = findTotalSpent(roomsTestData, [1, 5]);
+    expect(result).to.equal(698.57);
+  });
+    
+  it("should work with different arrays", () => {
+    const result = findTotalSpent(roomsTestData, [6]);
+    expect(result).to.equal(397.02);
+  });
+
+  it("should return 0 if no matches are found", () => {
+    const result = findTotalSpent(roomsTestData, []);
+    expect(result).to.equal(0);
+  });
+});
+
+describe("Find rooms based on the room type", () => {
+  it("should return an array based on a given string", () => {
+    const result = findRoomByType(roomsTestData, "suite");
+    expect(result).to.deep.equal([  {
+      number: 2,
+      roomType: "suite",
+      bidet: false,
+      bedSize: "full",
+      numBeds: 2,
+      costPerNight: 477.38
+    }]);
+  });
+    
+  it("should work with different room typs", () => {
+    const result = findRoomByType(roomsTestData, "single room");
+    expect(result).to.deep.equal([  {
+      number: 3,
+      roomType: "single room",
+      bidet: false,
+      bedSize: "king",
+      numBeds: 1,
+      costPerNight: 491.14
+    },  
+    {
+      number: 4,
+      roomType: "single room",
+      bidet: false,
+      bedSize: "queen",
+      numBeds: 1,
+      costPerNight: 429.44
+    },  
+    {
+      number: 5,
+      roomType: "single room",
+      bidet: true,
+      bedSize: "queen",
+      numBeds: 2,
+      costPerNight: 340.17
+    }]);
+  });
+
+  it("should return an empty if no matches are found", () => {
+    const result = findRoomByType(roomsTestData, "super awesome chocolate-coated supeer mansion");
+    expect(result).to.deep.equal([]);
+  });
+});
+
+
