@@ -122,3 +122,19 @@ describe("Find rooms based on the room type", () => {
 });
 
 
+describe("Find rooms that are already booked based on a given date", () => {
+  it("should only return available room ID numbers", () => {
+    const result = checkDate(bookingsTestData, "2022/01/29");
+    expect(result).to.deep.equal([2, 3, 4, 5, 6, 20]);
+  });
+    
+  it("should work with different dates", () => {
+    const result = checkDate(bookingsTestData, "2022/02/19");
+    expect(result).to.deep.equal([1, 2, 3, 4, 6, 20]);
+  });
+
+  it("should return an apology message if no rooms are available", () => {
+    const result = checkDate(roomsTestData, "super awesome chocolate-coated supeer mansion");
+    expect(result).to.equal("We are so sorry, but there are no rooms available on that day. Please adjust your search and try again.");
+  });
+});
