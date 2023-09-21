@@ -115,9 +115,9 @@ describe("Find rooms based on the room type", () => {
     }]);
   });
 
-  it("should return an empty if no matches are found", () => {
+  it("should return an apology message if no rooms are available", () => {
     const result = findRoomByType(roomsTestData, "super awesome chocolate-coated supeer mansion");
-    expect(result).to.deep.equal([]);
+    expect(result).to.equal("We are so sorry, but there are no rooms available on that day. Please adjust your search and try again.");
   });
 });
 
