@@ -38,6 +38,7 @@ describe("Find past and current bookings", () => {
   });
 });
 
+
 describe("Find the total amount a customer has spent on rooms", () => {
   it("should return a number based on a given array of room IDs", () => {
     const result = findTotalSpent(roomsTestData, [1, 5]);
@@ -54,3 +55,5 @@ describe("Find the total amount a customer has spent on rooms", () => {
     expect(result).to.equal(0);
   });
 });
+
+
