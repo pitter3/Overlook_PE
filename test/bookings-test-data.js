@@ -48,3 +48,5 @@ const bookingsTestData = [
     roomNumber: 20
   },
 ];
+
+export default bookingsTestData;
