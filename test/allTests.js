@@ -7,7 +7,7 @@ const expect = chai.expect;
 import bookingsTestData from './bookings-test-data';
 import customerTestData from './customer-test-data';
 import roomsTestData from './rooms-test-data';
-import { findBookings } from '../src/functions';
+import { findBookings, findTotalSpent } from '../src/functions';
 
 describe("Find past and current bookings", () => {
   it("should return an array of bookings based on a given userID", () => {
