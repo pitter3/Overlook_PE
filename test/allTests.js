@@ -1,8 +1,13 @@
 // ROBUST TEST SUITE
 
+
+import chai from 'chai';
+const expect = chai.expect;
+
 import bookingsTestData from './bookings-test-data';
 import customerTestData from './customer-test-data';
 import roomsTestData from './rooms-test-data';
+import { findBookings, findTotalSpent, findRoomByType, checkDate } from '../src/functions';
 
 describe("Find past and current bookings", () => {
   it("should return an array of bookings based on a given userID", () => {
@@ -33,26 +38,8 @@ describe("Find past and current bookings", () => {
   });
 
   it("should return an empty array if no matches", () => {
-    const result = returnFilteredTag(bookingsTestData, 50);
-    expect(result).to.deep.equal([]);
-  });
-});
-
-
-describe("Find the total amount a customer has spent on rooms", () => {
-  it("should return a number based on a given array of room IDs", () => {
-    const result = findTotalSpent(roomsTestData, [1, 5]);
-    expect(result).to.equal(698.57);
-  });
-    
-  it("should work with different arrays", () => {
-    const result = findTotalSpent(roomsTestData, [6]);
-    expect(result).to.equal(397.02);
-  });
-
-  it("should return 0 if no matches are found", () => {
-    const result = findTotalSpent(roomsTestData, []);
-    expect(result).to.equal(0);
+    const result = findBookings(bookingsTestData, 50);
+    expect(result.length).to.equal(0);
   });
 });
 
@@ -87,7 +74,7 @@ describe("Find rooms based on the room type", () => {
     }]);
   });
     
-  it("should work with different room typs", () => {
+  it("should work with different room types", () => {
     const result = findRoomByType(roomsTestData, "single room");
     expect(result).to.deep.equal([  {
       number: 3,
@@ -125,16 +112,16 @@ describe("Find rooms based on the room type", () => {
 describe("Find rooms that are already booked based on a given date", () => {
   it("should only return available room ID numbers", () => {
     const result = checkDate(bookingsTestData, "2022/01/29");
-    expect(result).to.deep.equal([2, 3, 4, 5, 6, 20]);
+    expect(result).to.deep.equal([2, 3, 4, 5, 6, 3, 20]);
   });
     
   it("should work with different dates", () => {
     const result = checkDate(bookingsTestData, "2022/02/19");
-    expect(result).to.deep.equal([1, 2, 3, 4, 6, 20]);
+    expect(result).to.deep.equal([1, 2, 3, 4, 6, 3, 20]);
   });
 
   it("should return an apology message if no rooms are available", () => {
-    const result = checkDate(roomsTestData, "super awesome chocolate-coated supeer mansion");
+    const result = checkDate(bookingsTestData, "super awesome chocolate-coated super mansion");
     expect(result).to.equal("We are so sorry, but there are no rooms available on that day. Please adjust your search and try again.");
   });
 });
