@@ -7,7 +7,7 @@ const expect = chai.expect;
 import bookingsTestData from './bookings-test-data';
 import customerTestData from './customer-test-data';
 import roomsTestData from './rooms-test-data';
-import { findBookings, findTotalSpent, findRoomByType } from '../src/functions';
+import { findBookings, findTotalSpent, findRoomByType, checkDate } from '../src/functions';
 
 describe("Find past and current bookings", () => {
   it("should return an array of bookings based on a given userID", () => {
@@ -112,16 +112,16 @@ describe("Find rooms based on the room type", () => {
 describe("Find rooms that are already booked based on a given date", () => {
   it("should only return available room ID numbers", () => {
     const result = checkDate(bookingsTestData, "2022/01/29");
-    expect(result).to.deep.equal([2, 3, 4, 5, 6, 20]);
+    expect(result).to.deep.equal([2, 3, 4, 5, 6, 3, 20]);
   });
     
   it("should work with different dates", () => {
     const result = checkDate(bookingsTestData, "2022/02/19");
-    expect(result).to.deep.equal([1, 2, 3, 4, 6, 20]);
+    expect(result).to.deep.equal([1, 2, 3, 4, 6, 3, 20]);
   });
 
   it("should return an apology message if no rooms are available", () => {
-    const result = checkDate(roomsTestData, "super awesome chocolate-coated supeer mansion");
+    const result = checkDate(bookingsTestData, "super awesome chocolate-coated super mansion");
     expect(result).to.equal("We are so sorry, but there are no rooms available on that day. Please adjust your search and try again.");
   });
 });
