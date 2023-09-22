@@ -61,24 +61,6 @@ describe("Find the total amount a customer has spent on rooms", () => {
   });
 });
 
-
-describe("Find the total amount a customer has spent on rooms", () => {
-  it("should return a number based on a given array of room IDs", () => {
-    const result = findTotalSpent(roomsTestData, [1, 5]);
-    expect(result).to.equal(698.57);
-  });
-    
-  it("should work with different arrays", () => {
-    const result = findTotalSpent(roomsTestData, [6]);
-    expect(result).to.equal(397.02);
-  });
-
-  it("should return 0 if no matches are found", () => {
-    const result = findTotalSpent(roomsTestData, []);
-    expect(result).to.equal(0);
-  });
-});
-
 describe("Find rooms based on the room type", () => {
   it("should return an array based on a given string", () => {
     const result = findRoomByType(roomsTestData, "suite");
