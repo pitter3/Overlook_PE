@@ -44,6 +44,9 @@ loginForm.addEventListener("submit", function(event) {
     getBookingsByID(customerID)
     // renderUserPage()
     // populate the main page based on the user who logged in
+
+    // display total spent on rooms
+    // display current (and past) bookings
   } else {
     console.log("LOGIN FAILURE :(")
   }
