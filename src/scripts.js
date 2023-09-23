@@ -9,7 +9,7 @@ import {
   deleteBooking,
   getBookingsByID,
 } from './apiCalls.js';
-import { getCustomerID, findTotalSpent } from './functions';
+import { getCustomerID, findTotalSpent, findBookings } from './functions';
 
 
 let activeCustomer = {};
@@ -41,19 +41,29 @@ loginForm.addEventListener("submit", function(event) {
     console.log("LOGIN SUCCESS!!!")
     loginContainer.remove()
     const customerID = getCustomerID(usernameField.value);
-    getBookingsByID(customerID)
-    .then((customerBookings) => {
+    const customerBookings = findBookings(customerID, bookings)
       activeCustomer.name = getCustomerName(customerID);
       activeCustomer.id = customerID
       activeCustomer.bookings = customerBookings
       activeCustomer.totalSpent = findTotalSpent(rooms, activeCustomer.bookings)
       console.log(activeCustomer);
+  
+    
+    
+    
+    // getBookingsByID(customerID)
+    // .then((customerBookings) => {
+    //   activeCustomer.name = getCustomerName(customerID);
+    //   activeCustomer.id = customerID
+    //   activeCustomer.bookings = customerBookings
+    //   activeCustomer.totalSpent = findTotalSpent(rooms, activeCustomer.bookings)
+    //   console.log(activeCustomer);
       
       // Continue with other actions you want to perform
-    })
-    .catch((error) => {
-      console.error("Error fetching customer bookings:", error);
-    });
+    // })
+    // .catch((error) => {
+    //   console.error("Error fetching customer bookings:", error);
+    // });
     // renderUserPage()
     // populate the main page based on the user who logged in
 

@@ -4,7 +4,6 @@ export const findBookings = (id, bookings) => {
   const matches = bookings.filter((booking) => {
     return booking.userID === id
   })
-  console.log(matches)
   return matches
 }
 
@@ -18,7 +17,7 @@ export const findTotalSpent = (rooms, bookedRooms) => {
     return acc
   }, 0)
   const roundedTotal = Math.round(total * 100) / 100;
-  return roundedTotal
+  return `$${roundedTotal}`
 }
 
 export const findRoomByType = (rooms, roomType) => {
