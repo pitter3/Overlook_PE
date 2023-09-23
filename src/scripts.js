@@ -9,7 +9,7 @@ import {
   deleteBooking,
   getBookingsByID,
 } from './apiCalls.js';
-import { getCustomerID } from './functions';
+import { getCustomerID, getCustomerBookings } from './functions';
 
 
 let activeCustomer = {};
@@ -42,6 +42,17 @@ loginForm.addEventListener("submit", function(event) {
     loginContainer.remove()
     const customerID = getCustomerID(usernameField.value);
     getBookingsByID(customerID)
+    .then((customerBookings) => {
+      activeCustomer.id = customerID
+      activeCustomer.bookings = customerBookings
+      activeCustomer.name = getCustomerName(customerID)
+      console.log(activeCustomer)
+      
+      // Continue with other actions you want to perform
+    })
+    .catch((error) => {
+      console.error("Error fetching customer bookings:", error);
+    });
     // renderUserPage()
     // populate the main page based on the user who logged in
 
@@ -77,3 +88,10 @@ const checkPassword = (password) => {
     return false 
   }
 };
+
+function getCustomerName(id) {
+  const customer = customers.find((customer) => {
+    return customer.id === id;
+  });
+  return customer.name;
+}
