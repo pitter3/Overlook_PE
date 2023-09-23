@@ -1,9 +1,10 @@
 // TESTABLE FUNCTIONS
 
-export const findBookings = (bookings, id) => {
+export const findBookings = (id, bookings) => {
   const matches = bookings.filter((booking) => {
     return booking.userID === id
   })
+  console.log(matches)
   return matches
 }
 

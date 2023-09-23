@@ -6,8 +6,10 @@ import {
   getSingleCustomer, 
   getBookings, 
   postBooking, 
-  deleteBooking 
+  deleteBooking,
+  getBookingsByID,
 } from './apiCalls.js';
+import { getCustomerID } from './functions';
 
 
 let activeCustomer = {};
@@ -21,7 +23,7 @@ Promise.all([getCustomers, getRooms, getBookings])
   customers = customersData.customers;
   rooms = roomsData.rooms;
   bookings = bookingsData.bookings;
-})
+});
 
 
 
@@ -38,6 +40,8 @@ loginForm.addEventListener("submit", function(event) {
   if (checkUsername(usernameField.value) && checkPassword(passwordField.value)) {
     console.log("LOGIN SUCCESS!!!")
     loginContainer.remove()
+    const customerID = getCustomerID(usernameField.value);
+    getBookingsByID(customerID)
     // renderUserPage()
     // populate the main page based on the user who logged in
   } else {

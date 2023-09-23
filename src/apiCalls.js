@@ -1,3 +1,5 @@
+import { findBookings } from "./functions";
+
 // FETCH REQUESTS
 
 export const getCustomers = 
@@ -96,6 +98,26 @@ export const deleteBooking = (bookingID) => {
   })
   .catch((error) => {
     console.error("Error sending DELETE request:", error);
+    throw error;
+  });
+}
+
+
+export const getBookingsByID = (customerID) => {
+  return fetch(`http://localhost:3001/api/v1/bookings`)
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`Fetch failure, status code: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then((data) => {
+    let bookings = data.bookings;
+    let customerBookings = findBookings(customerID, bookings);
+    return customerBookings;
+  })
+  .catch((error) => {
+    console.error("Error fetching customer bookings:", error);
     throw error;
   });
 }
