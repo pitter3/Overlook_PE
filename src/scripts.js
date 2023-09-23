@@ -9,4 +9,14 @@ import './images/turing-logo.png'
 import { getCustomers } from './apiCalls.js';
 
 
-console.log('This is the JavaScript entry file - your code begins here.');
+// QUERY SELECTORS
+
+const loginButton = document.getElementById("login-form")
+
+
+loginButton.addEventListener("submit", function(event) {
+  event.preventDefault();
+  verifyLoginInfo();
+  console.log("XDXDXD123");
+})
+
