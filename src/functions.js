@@ -42,3 +42,7 @@ export const checkDate = (bookings, date) => {
   return nonMatchingRoomNumbers;
 };
 
+export const getCustomerID = (username) => {
+  const customerNumberString = username.replace('customer', '');
+  return parseInt(customerNumberString);
+};

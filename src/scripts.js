@@ -30,7 +30,7 @@ Promise.all([getCustomers, getRooms, getBookings])
 const loginForm = document.getElementById("login-form");
 const usernameField = document.getElementById("username-input");
 const passwordField = document.getElementById("password-input");
-const loginContainer = document.querySelector(".login-container")
+const loginContainer = document.querySelector(".login-container");
 
 loginForm.addEventListener("submit", function(event) {
   event.preventDefault();
