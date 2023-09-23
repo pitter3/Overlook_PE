@@ -47,26 +47,8 @@ loginForm.addEventListener("submit", function(event) {
       activeCustomer.bookings = customerBookings
       activeCustomer.totalSpent = findTotalSpent(rooms, activeCustomer.bookings)
       console.log(activeCustomer);
-  
-    
-    
-    
-    // getBookingsByID(customerID)
-    // .then((customerBookings) => {
-    //   activeCustomer.name = getCustomerName(customerID);
-    //   activeCustomer.id = customerID
-    //   activeCustomer.bookings = customerBookings
-    //   activeCustomer.totalSpent = findTotalSpent(rooms, activeCustomer.bookings)
-    //   console.log(activeCustomer);
-      
-      // Continue with other actions you want to perform
-    // })
-    // .catch((error) => {
-    //   console.error("Error fetching customer bookings:", error);
-    // });
     // renderUserPage()
     // populate the main page based on the user who logged in
-
     // display total spent on rooms
     // display current (and past) bookings
   } else {
