@@ -15,7 +15,6 @@ main {
   height: 100%;
 }
 
-
 .login-container {
   display: flex;
   height: 500px;
@@ -31,8 +30,6 @@ main {
   width: 70%;
   height: 100%;
 }
-
-
 
 #login-button {
   height: 50px;

@@ -11,15 +11,19 @@ import { getCustomers } from './apiCalls.js';
 
 // QUERY SELECTORS
 
-const loginButton = document.getElementById("login-form");
+const loginForm = document.getElementById("login-form");
 const usernameField = document.getElementById("username-input");
 const passwordField = document.getElementById("password-input");
+const loginContainer = document.querySelector(".login-container")
 
-loginButton.addEventListener("submit", function(event) {
+loginForm.addEventListener("submit", function(event) {
   event.preventDefault();
   
   if (checkUsername(usernameField.value) && checkPassword(passwordField.value)) {
     console.log("LOGIN SUCCESS!!!")
+    loginContainer.remove()
+    // renderUserPage()
+    // populate the main page based on the user who logged in
   } else {
     console.log("LOGIN FAILURE :(")
   }
@@ -31,7 +35,7 @@ loginButton.addEventListener("submit", function(event) {
 function clearLoginFields() {
   usernameField.value = "";
   passwordField.value = "";
-}
+};
 
 const checkUsername = (username) => {
   const match = username.match(/^customer([1-9]|[1-4][0-9]|50)$/);
@@ -41,7 +45,6 @@ const checkUsername = (username) => {
   console.log("INVALID USERNAME");
   return false;
 };
-
 
 const checkPassword = (password) => {
   if (password === "overlook2021") {
