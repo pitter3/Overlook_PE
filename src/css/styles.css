@@ -1,3 +1,44 @@
-body {
-  background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+* {
+  /* border: solid green 1px */
+}
+html {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+
+.login-container {
+  display: flex;
+  height: 500px;
+  width: 600px;
+  align-items: center;
+  justify-content: center;
+  background-color: #d3d3d3
+}
+
+#login-form {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  height: 100%;
+
+}
+
+#username-input, #password-input, #login-button {
+  height: 50px;
+}
+
+#login-header {
+  display:flex;
+  font-size: 50px;
+  justify-content: center;
 }
