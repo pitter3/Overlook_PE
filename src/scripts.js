@@ -9,7 +9,7 @@ import {
   deleteBooking,
   getBookingsByID,
 } from './apiCalls.js';
-import { getCustomerID, getCustomerBookings } from './functions';
+import { getCustomerID, findTotalSpent } from './functions';
 
 
 let activeCustomer = {};
@@ -43,10 +43,11 @@ loginForm.addEventListener("submit", function(event) {
     const customerID = getCustomerID(usernameField.value);
     getBookingsByID(customerID)
     .then((customerBookings) => {
+      activeCustomer.name = getCustomerName(customerID);
       activeCustomer.id = customerID
       activeCustomer.bookings = customerBookings
-      activeCustomer.name = getCustomerName(customerID)
-      console.log(activeCustomer)
+      activeCustomer.totalSpent = findTotalSpent(rooms, activeCustomer.bookings)
+      console.log(activeCustomer);
       
       // Continue with other actions you want to perform
     })
@@ -95,3 +96,8 @@ function getCustomerName(id) {
   });
   return customer.name;
 }
+
+// function getRoomNumbers(customerBookings) {
+//   const roomNumbers = customerBookings.map((booking) => booking.roomNumber);
+//   return roomNumbers;
+// }

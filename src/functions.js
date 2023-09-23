@@ -8,10 +8,10 @@ export const findBookings = (id, bookings) => {
   return matches
 }
 
-export const findTotalSpent = (rooms, bookedRoomNumbers) => {
+export const findTotalSpent = (rooms, bookedRooms) => {
   const total = rooms.reduce((acc, room) => {
-    bookedRoomNumbers.forEach((bookedRoomNumber) => {
-      if (bookedRoomNumber === room.number) {
+    bookedRooms.forEach((bookedRoom) => {
+      if (bookedRoom.roomNumber === room.number) {
         acc += room.costPerNight
       }
     })
