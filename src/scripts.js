@@ -11,12 +11,43 @@ import { getCustomers } from './apiCalls.js';
 
 // QUERY SELECTORS
 
-const loginButton = document.getElementById("login-form")
-
+const loginButton = document.getElementById("login-form");
+const usernameField = document.getElementById("username-input");
+const passwordField = document.getElementById("password-input");
 
 loginButton.addEventListener("submit", function(event) {
   event.preventDefault();
-  verifyLoginInfo();
-  console.log("XDXDXD123");
-})
+  
+  if (checkUsername(usernameField.value) && checkPassword(passwordField.value)) {
+    console.log("LOGIN SUCCESS!!!")
+  } else {
+    console.log("LOGIN FAILURE :(")
+  }
+  clearLoginFields();
+});
 
+// DOM FUNCTIONS
+
+function clearLoginFields() {
+  usernameField.value = "";
+  passwordField.value = "";
+}
+
+const checkUsername = (username) => {
+  const match = username.match(/^customer([1-9]|[1-4][0-9]|50)$/);
+  if (match) {
+    return true;
+  }
+  console.log("INVALID USERNAME");
+  return false;
+};
+
+
+const checkPassword = (password) => {
+  if (password === "overlook2021") {
+    return true 
+  } else {
+    console.log("WRONG PASSWORD")
+    return false 
+  }
+};

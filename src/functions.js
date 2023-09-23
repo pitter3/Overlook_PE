@@ -42,6 +42,3 @@ export const checkDate = (bookings, date) => {
   return nonMatchingRoomNumbers;
 };
 
-export function login() {
-  
-}
