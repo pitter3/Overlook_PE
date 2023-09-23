@@ -1,12 +1,95 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
-// An example of how you tell webpack to use a CSS (SCSS) file
 import './css/styles.css';
-
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/turing-logo.png'
-import { getCustomers } from './apiCalls.js';
+import { 
+  getCustomers, 
+  getRooms, 
+  getSingleCustomer, 
+  getBookings, 
+  postBooking, 
+  deleteBooking,
+  getBookingsByID,
+} from './apiCalls.js';
+import { getCustomerID, findTotalSpent, findBookings } from './functions';
 
 
-console.log('This is the JavaScript entry file - your code begins here.');
+let activeCustomer = {};
+
+let customers = null;
+let rooms = null;
+let bookings = null
+
+Promise.all([getCustomers, getRooms, getBookings])
+.then(([customersData, roomsData, bookingsData]) => {
+  customers = customersData.customers;
+  rooms = roomsData.rooms;
+  bookings = bookingsData.bookings;
+});
+
+
+
+// QUERY SELECTORS
+
+const loginForm = document.getElementById("login-form");
+const usernameField = document.getElementById("username-input");
+const passwordField = document.getElementById("password-input");
+const loginContainer = document.querySelector(".login-container");
+
+loginForm.addEventListener("submit", function(event) {
+  event.preventDefault();
+  
+  if (checkUsername(usernameField.value) && checkPassword(passwordField.value)) {
+    console.log("LOGIN SUCCESS!!!")
+    loginContainer.remove()
+    const customerID = getCustomerID(usernameField.value);
+    const customerBookings = findBookings(customerID, bookings)
+      activeCustomer.name = getCustomerName(customerID);
+      activeCustomer.id = customerID
+      activeCustomer.bookings = customerBookings
+      activeCustomer.totalSpent = findTotalSpent(rooms, activeCustomer.bookings)
+      console.log(activeCustomer);
+    // renderUserPage()
+    // populate the main page based on the user who logged in
+    // display total spent on rooms
+    // display current (and past) bookings
+  } else {
+    console.log("LOGIN FAILURE :(")
+  }
+  clearLoginFields();
+});
+
+// DOM FUNCTIONS
+
+function clearLoginFields() {
+  usernameField.value = "";
+  passwordField.value = "";
+};
+
+const checkUsername = (username) => {
+  const match = username.match(/^customer([1-9]|[1-4][0-9]|50)$/);
+  if (match) {
+    return true;
+  }
+  console.log("INVALID USERNAME");
+  return false;
+};
+
+const checkPassword = (password) => {
+  if (password === "overlook2021") {
+    return true 
+  } else {
+    console.log("WRONG PASSWORD")
+    return false 
+  }
+};
+
+function getCustomerName(id) {
+  const customer = customers.find((customer) => {
+    return customer.id === id;
+  });
+  return customer.name;
+}
+
+// function getRoomNumbers(customerBookings) {
+//   const roomNumbers = customerBookings.map((booking) => booking.roomNumber);
+//   return roomNumbers;
+// }

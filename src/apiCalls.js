@@ -1,3 +1,5 @@
+import { findBookings } from "./functions";
+
 // FETCH REQUESTS
 
 export const getCustomers = 

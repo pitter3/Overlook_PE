@@ -1,23 +1,23 @@
 // TESTABLE FUNCTIONS
 
-export const findBookings = (bookings, id) => {
+export const findBookings = (id, bookings) => {
   const matches = bookings.filter((booking) => {
     return booking.userID === id
   })
   return matches
 }
 
-export const findTotalSpent = (rooms, bookedRoomNumbers) => {
+export const findTotalSpent = (rooms, bookedRooms) => {
   const total = rooms.reduce((acc, room) => {
-    bookedRoomNumbers.forEach((bookedRoomNumber) => {
-      if (bookedRoomNumber === room.number) {
+    bookedRooms.forEach((bookedRoom) => {
+      if (bookedRoom.roomNumber === room.number) {
         acc += room.costPerNight
       }
     })
     return acc
   }, 0)
   const roundedTotal = Math.round(total * 100) / 100;
-  return roundedTotal
+  return `$${roundedTotal}`
 }
 
 export const findRoomByType = (rooms, roomType) => {
@@ -40,4 +40,9 @@ export const checkDate = (bookings, date) => {
   }
 
   return nonMatchingRoomNumbers;
+};
+
+export const getCustomerID = (username) => {
+  const customerNumberString = username.replace('customer', '');
+  return parseInt(customerNumberString);
 };
