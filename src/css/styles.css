@@ -1,18 +1,18 @@
 * {
-  /* border: solid green 1px */
+  border: solid green 1px
 }
 html {
   height: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
 }
 
 main {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  height: 100vh;
+  flex-direction: column;
 }
 
 .login-container {
@@ -21,7 +21,7 @@ main {
   width: 600px;
   align-items: center;
   justify-content: center;
-  background-color: #d3d3d3
+  background-color: #d3d3d3;
 }
 
 #login-form {
@@ -59,4 +59,11 @@ main {
   font-size: 50px;
   justify-content: center;
   height: 100px;
+}
+
+header {
+  font-size: 50px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-bottom: 150px;
 }
