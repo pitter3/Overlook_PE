@@ -52,17 +52,17 @@ const splitBookingsByPastAndUpcoming = (bookings = []) => {
 
 // QUERY SELECTORS
 
-const loginForm = document.getElementById("login-form");
-const usernameField = document.getElementById("username-input");
-const passwordField = document.getElementById("password-input");
-const loginContainer = document.querySelector(".login-container");
+const loginForm = document.querySelector(".login-form");
+const usernameField = document.querySelector(".username-input");
+const passwordField = document.querySelector(".password-input");
+// const loginContainer = document.querySelector(".login-container");
 
 loginForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
     if (checkUsername(usernameField.value) && checkPassword(passwordField.value)) {
         console.log("LOGIN SUCCESS!!!")
-        loginContainer.remove()
+        // loginContainer.remove()
         const customerID = getCustomerID(usernameField.value);
         const customerBookings = findBookings(customerID, bookings)
         activeCustomer.name = getCustomerName(customerID);
