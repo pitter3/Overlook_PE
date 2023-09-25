@@ -8,14 +8,33 @@
 </head>
 <body>
   <main>
-    <div class="login-container">
+    <header>
+      <!-- <img src="./images/Logo.png" alt="turing logo"> -->
+    </header>
+    
+    <form class="login-form">
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Username</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1">
+      </div>
+      <div id="login-button-wrapper">
+      <div class="error-text-wrap">
+        <div class="form-text text-danger">Incorrect Username / Password</div>
+      </div>
+        <button type="submit" class="btn btn-primary" id="login-button">Submit</button>
+      </div>
+    </form> <!-- <div class="login-container">
       <form id="login-form">
         <p id="login-header">Login</p>
         <input id="username-input" type="text" placeholder="Username" required/>
         <input id="password-input" type="password" placeholder="Password" required/>
        <button id="login-button" type="submit">Log In</button>
       </form>
-    </div>
+    </div> -->
   </main>
 </body>
   <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
