@@ -2,7 +2,32 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
 import './images/Logo.png'
-import './images/Room1.png'
+import './images/Room1.png';
+import './images/Room2.png';
+import './images/Room3.png';
+import './images/Room4.png';
+import './images/Room5.png';
+import './images/Room6.png';
+import './images/Room7.png';
+import './images/Room8.png';
+import './images/Room9.png';
+import './images/Room10.png';
+import './images/Room11.png';
+import './images/Room12.png';
+import './images/Room13.png';
+import './images/Room14.png';
+import './images/Room15.png';
+import './images/Room16.png';
+import './images/Room17.png';
+import './images/Room18.png';
+import './images/Room19.png';
+import './images/Room20.png';
+import './images/Room21.png';
+import './images/Room22.png';
+import './images/Room23.png';
+import './images/Room24.png';
+import './images/Room25.png';
+
 import {orderBy} from 'lodash'
 import {
     getCustomers,
@@ -74,9 +99,10 @@ loginForm.addEventListener("submit", function (event) {
         activeCustomer.totalSpent = findTotalSpent(rooms, activeCustomer.bookings)
         activeCustomer.pastAndUpcomingBookings = splitBookingsByPastAndUpcoming(activeCustomer.bookings)
         displayDashboard();
+        displayPreviousRooms(activeCustomer.pastAndUpcomingBookings.pastBookings)
         console.log(activeCustomer);
         // console.log(bookings)
-        // console.log(rooms)
+        console.log(rooms)
         // renderUserPage()
         // populate the main page based on the user who logged in
         // display total spent on rooms
@@ -124,10 +150,66 @@ function getCustomerName(id) {
 }
 
 function displayDashboard() {
-  userDashboard.innerHTML = `<h4 class="welcome-message">Welcome, ${activeCustomer.name}</h4>`;
+  userDashboard.innerHTML = `<h4 class="welcome-message">Welcome, ${activeCustomer.name}</h4>
+  <section class="previous-section">
+  <h4>Your previous bookings:</h4>
+  <div class="container text-center">
+    <div class="row">
+     <div class="col">
+        <img src="./images/Room1.png" alt="Bootstrap" width="160", height="90">
+      </div>
+      <div class="col">
+       Column
+      </div>
+      <div class="col">
+        Column
+      </div>
+    </div>
+  </div>
+  </section>
+    
+    <footer>
+      <h4 class="total-spent">You have spent ${activeCustomer.totalSpent}</h4>
+    </footer>`;
 }
 
+{/* <section class="future-section">
+      <h4>Your future bookings:</h4>
+      <div class="container text-center">
+        <div class="row">
+          <div class="col">
+            Column
+          </div>
+          <div class="col">
+            Column
+          </div>
+          <div class="col">
+            Column
+          </div>
+        </div>
+      </div>
+    </section> */}
 // function getRoomNumbers(customerBookings) {
 //   const roomNumbers = customerBookings.map((booking) => booking.roomNumber);
 //   return roomNumbers;
 // }bo
+
+
+function displayPreviousRooms(previousBookings) {
+  const row = document.querySelector(".row");
+  row.innerHTML = ""; // Clear any existing content in the row
+
+  previousBookings.forEach((booking, i) => {
+    const col = document.createElement("div"); // Create a new div element
+    col.classList.add("col");
+    
+    const img = document.createElement("img"); // Create an image element
+    img.src = `./images/Room${i+1}.png`;
+    img.alt = "Bootstrap";
+    img.width = 160;
+    img.height = 90;
+
+    col.appendChild(img); // Append the image to the column
+    row.appendChild(col); // Append the column to the row
+  });
+}

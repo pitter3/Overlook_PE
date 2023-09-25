@@ -99,9 +99,7 @@ nav {
 }
 
 .previous-section {
-  height: 40%;
-  max-height: 100vh;
-  width: 95%;
+  width: 95vw;
   padding: 8px;
   border: 2px solid var(--bs-primary-border-subtle);
   border-radius: 8px;  
@@ -111,8 +109,7 @@ nav {
 }
 
 .future-section {
-  height: 40%;
-  width: 95%;
+  width: 95vw;
   padding: 8px;
   border: 2px solid var(--bs-primary-border-subtle);
   border-radius: 8px;
@@ -124,3 +121,4 @@ footer {
   display: flex;
   justify-content: flex-end;
 }
+
