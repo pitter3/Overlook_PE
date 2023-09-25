@@ -100,6 +100,7 @@ loginForm.addEventListener("submit", function (event) {
         activeCustomer.pastAndUpcomingBookings = splitBookingsByPastAndUpcoming(activeCustomer.bookings)
         displayDashboard();
         displayPreviousRooms(activeCustomer.pastAndUpcomingBookings.pastBookings)
+        displayFutureRooms(activeCustomer.pastAndUpcomingBookings.futureBookings)
         console.log(activeCustomer);
         // console.log(bookings)
         console.log(rooms)
@@ -129,7 +130,7 @@ const checkUsername = (username) => {
     if (match) {
         return true;
     }
-    console.log("INVALID USERNAME");
+    
     return false;
 };
 
@@ -137,7 +138,7 @@ const checkPassword = (password) => {
     if (password === "overlook2021") {
         return true
     } else {
-        console.log("WRONG PASSWORD")
+        
         return false
     }
 };
@@ -156,7 +157,7 @@ function displayDashboard() {
   <div class="container text-center">
     <div class="row">
      <div class="col">
-        <img src="./images/Room1.png" alt="Bootstrap" width="160", height="90">
+        Column
       </div>
       <div class="col">
        Column
@@ -167,49 +168,49 @@ function displayDashboard() {
     </div>
   </div>
   </section>
-    
+  <section class="future-section">
+  <h4>Your future bookings:</h4>
+  <div class="container text-center">
+    <div class="row">
+      <div class="col">
+        Column
+      </div>
+      <div class="col">
+        Column
+      </div>
+      <div class="col">
+        Column
+      </div>
+    </div>
+  </div>
+</section> 
     <footer>
       <h4 class="total-spent">You have spent ${activeCustomer.totalSpent}</h4>
     </footer>`;
 }
-
-{/* <section class="future-section">
-      <h4>Your future bookings:</h4>
-      <div class="container text-center">
-        <div class="row">
-          <div class="col">
-            Column
-          </div>
-          <div class="col">
-            Column
-          </div>
-          <div class="col">
-            Column
-          </div>
-        </div>
-      </div>
-    </section> */}
 // function getRoomNumbers(customerBookings) {
 //   const roomNumbers = customerBookings.map((booking) => booking.roomNumber);
 //   return roomNumbers;
 // }bo
 
 
-function displayPreviousRooms(previousBookings) {
-  const row = document.querySelector(".row");
-  row.innerHTML = ""; // Clear any existing content in the row
+// function displayPreviousRooms(previousBookings) {
+//   const row = document.querySelector(".row");
+//   row.innerHTML = ""; // Clear any existing content in the row
 
-  previousBookings.forEach((booking, i) => {
-    const col = document.createElement("div"); // Create a new div element
-    col.classList.add("col");
+//   previousBookings.forEach((booking, i) => {
+//     const col = document.createElement("div"); // Create a new div element
+//     col.classList.add("col");
     
-    const img = document.createElement("img"); // Create an image element
-    img.src = `./images/Room${i+1}.png`;
-    img.alt = "Bootstrap";
-    img.width = 160;
-    img.height = 90;
+//     const img = document.createElement("img"); // Create an image element
+//     img.src = `./images/Room${i+1}.png`;
+//     img.alt = "Bootstrap";
+//     img.width = 320;
+//     img.height = 180;
 
-    col.appendChild(img); // Append the image to the column
-    row.appendChild(col); // Append the column to the row
-  });
-}
+//     col.appendChild(img); // Append the image to the column
+//     row.appendChild(col); // Append the column to the row
+//   });
+// }
+
+
