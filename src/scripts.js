@@ -56,14 +56,16 @@ const splitBookingsByPastAndUpcoming = (bookings = []) => {
 const loginForm = document.querySelector(".login-form");
 const usernameField = document.querySelector(".username-input");
 const passwordField = document.querySelector(".password-input");
-// const loginContainer = document.querySelector(".login-container");
+const userDashboard = document.querySelector(".user-dashboard");
+
+
 
 loginForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
     if (checkUsername(usernameField.value) && checkPassword(passwordField.value)) {
         console.log("LOGIN SUCCESS!!!")
-        // loginContainer.remove()
+        loginForm.remove()
         const customerID = getCustomerID(usernameField.value);
         const customerBookings = findBookings(customerID, bookings)
         activeCustomer.name = getCustomerName(customerID);
@@ -71,9 +73,10 @@ loginForm.addEventListener("submit", function (event) {
         activeCustomer.bookings = customerBookings
         activeCustomer.totalSpent = findTotalSpent(rooms, activeCustomer.bookings)
         activeCustomer.pastAndUpcomingBookings = splitBookingsByPastAndUpcoming(activeCustomer.bookings)
+        displayDashboard();
         console.log(activeCustomer);
-        console.log(bookings)
-        console.log(rooms)
+        // console.log(bookings)
+        // console.log(rooms)
         // renderUserPage()
         // populate the main page based on the user who logged in
         // display total spent on rooms
@@ -81,8 +84,12 @@ loginForm.addEventListener("submit", function (event) {
     } else {
         console.log("LOGIN FAILURE :(")
     }
+    
     clearLoginFields();
 });
+
+
+
 
 // DOM FUNCTIONS
 
@@ -114,6 +121,10 @@ function getCustomerName(id) {
         return customer.id === id;
     });
     return customer.name;
+}
+
+function displayDashboard() {
+  userDashboard.innerHTML = `<h4 class="welcome-message">Welcome, ${activeCustomer.name}</h4>`;
 }
 
 // function getRoomNumbers(customerBookings) {
