@@ -1,6 +1,6 @@
-/* * {
-  border: solid green 1px */
-/* } */
+* {
+   /* border: solid green 1px  */
+ } 
 html {
   height: 100%;
   display: flex;
@@ -76,5 +76,18 @@ h1 {
 #login-button-wrapper {
   display: flex;
   width: 100%;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
 }
+
+.error-text-wrap * {
+  text-wrap: wrap;
+  max-width: 250px;
+  overflow-wrap: break-word;
+  word-break: break-all;
+  display: inline-block;
+  padding-right: 8px;
+}
+
+
+
