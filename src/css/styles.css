@@ -10,7 +10,7 @@ html {
 main {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   height: 100vh;
   flex-direction: column;
 }
@@ -71,6 +71,7 @@ h1 {
   border: 2px solid var(--bs-primary-border-subtle);
   padding: 8px;
   border-radius: 8px;
+  margin-top: 200px;
 }
 
 #login-button-wrapper {
@@ -89,5 +90,26 @@ h1 {
   padding-right: 8px;
 }
 
+h1 {
+  margin-left: 5px;
+}
 
+nav {
+  width: 100%;
+}
 
+.previous-section {
+  height: 40%;
+  width: 95%;
+}
+
+.future-section {
+  height: 40%;
+  width: 95%;
+}
+
+footer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}

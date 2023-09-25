@@ -8,33 +8,96 @@
 </head>
 <body>
   <main>
-    <header>
-      <!-- <img src="./images/Logo.png" alt="turing logo"> -->
-    </header>
     
-    <form class="login-form">
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Username</label>
-        <input type="username" class="form-control username-input" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+    <header>
+      <nav class="navbar bg-body-tertiary">
+        <div class="container">
+          <a class="navbar-brand" href="#">
+            <img src="./images/Logo.png" alt="Bootstrap" width="60" height="40">
+          </a>
+        </div>
+      </nav>
+    </header>
+    <h4 class="welcome-message">Welcome, ${username}</h4>
+    <section class="previous-section">
+      <h4>Your previous bookings:</h4>
+      <div class="container text-center">
+        <div class="row">
+          <div class="col">
+            Column
+          </div>
+          <div class="col">
+            Column
+          </div>
+          <div class="col">
+            Column
+          </div>
+        </div>
       </div>
-      <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">Password</label>
-        <input type="password" class="form-control password-input" id="exampleInputPassword1" required>
+      <div class="container text-center">
+        <div class="row">
+          <div class="col">
+            Column
+          </div>
+          <div class="col">
+            Column
+          </div>
+          <div class="col">
+            Column
+          </div>
+        </div>
       </div>
-      <div id="login-button-wrapper">
-      <div class="error-text-wrap">
-        <div class="form-text text-danger">Incorrect Username / Password</div>
+      <div class="container text-center">
+        <div class="row">
+          <div class="col">
+            Column
+          </div>
+          <div class="col">
+            Column
+          </div>
+          <div class="col">
+            Column
+          </div>
+        </div>
       </div>
-        <button type="submit" class="btn btn-primary" id="login-button">Submit</button>
+    </section>
+    <section class="future-section">
+      <h4>Your future bookings:</h4>
+      <div class="container text-center">
+        <div class="row">
+          <div class="col">
+            Column
+          </div>
+          <div class="col">
+            Column
+          </div>
+          <div class="col">
+            Column
+          </div>
+        </div>
       </div>
-    </form> <!-- <div class="login-container">
-      <form id="login-form">
-        <p id="login-header">Login</p>
-        <input id="username-input" type="text" placeholder="Username" required/>
-        <input id="password-input" type="password" placeholder="Password" required/>
-       <button id="login-button" type="submit">Log In</button>
-      </form>
-    </div> -->
+    </section>
+    <footer>
+      <h4 class="total-spent">You have spent ${total}</h4>
+    </footer>
+    
+      <!-- <form class="login-form">
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Username</label>
+          <input type="username" class="form-control username-input" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Password</label>
+          <input type="password" class="form-control password-input" id="exampleInputPassword1" required>
+        </div>
+        <div id="login-button-wrapper">
+        <div class="error-text-wrap">
+          <div class="form-text text-danger">Incorrect Username / Password</div>
+        </div>
+          <button type="submit" class="btn btn-primary" id="login-button">Submit</button>
+        </div>
+      </form>  -->
+      
   </main>
 </body>
   <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
