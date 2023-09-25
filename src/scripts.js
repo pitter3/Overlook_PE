@@ -82,6 +82,7 @@ const loginForm = document.querySelector(".login-form");
 const usernameField = document.querySelector(".username-input");
 const passwordField = document.querySelector(".password-input");
 const userDashboard = document.querySelector(".user-dashboard");
+const loginError = document.querySelector(".form-text");
 
 
 
@@ -129,16 +130,17 @@ const checkUsername = (username) => {
     const match = username.match(/^customer([1-9]|[1-4][0-9]|50)$/);
     if (match) {
         return true;
+    } else {
+      displayUsernameError()
+      return false
     }
-    
-    return false;
 };
 
 const checkPassword = (password) => {
     if (password === "overlook2021") {
         return true
     } else {
-        
+        displayPasswordError()
         return false
     }
 };
@@ -213,4 +215,10 @@ function displayDashboard() {
 //   });
 // }
 
+function displayUsernameError() {
+  loginError.innerText = "Incorrect Username, please try again"
+}
 
+function displayPasswordError() {
+  loginError.innerText = "Incorrect Password, please try again"
+}
