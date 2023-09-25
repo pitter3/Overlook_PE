@@ -2,6 +2,7 @@ import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
 import './images/Logo.png'
+import './images/Room1.png'
 import {orderBy} from 'lodash'
 import {
     getCustomers,
