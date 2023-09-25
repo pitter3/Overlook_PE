@@ -1,6 +1,6 @@
-* {
-  border: solid green 1px
-}
+/* * {
+  border: solid green 1px */
+/* } */
 html {
   height: 100%;
   display: flex;
@@ -65,5 +65,11 @@ header {
   font-size: 50px;
   align-items: flex-start;
   justify-content: flex-start;
-  margin-bottom: 150px;
+  margin-bottom: 0px;
+  width: 100%;
+  display: flex;
+}
+
+h1 {
+  margin-top: 0px;
 }

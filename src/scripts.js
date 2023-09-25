@@ -1,5 +1,7 @@
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/styles.css';
-import './images/turing-logo.png'
+import './images/Logo.png'
 import {orderBy} from 'lodash'
 import {
     getCustomers,

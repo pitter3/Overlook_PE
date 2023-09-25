@@ -30,6 +30,7 @@
     "lint": "./node_modules/.bin/eslint 'src/**.js' 'test/**.js'"
   },
   "dependencies": {
+    "bootstrap": "^5.3.2",
     "lodash": "^4.17.21"
   }
 }
