@@ -28,7 +28,6 @@ import './images/Room23.png';
 import './images/Room24.png';
 import './images/Room25.png';
 import datepicker from 'js-datepicker'
-
 import {orderBy} from 'lodash'
 import {
     getCustomers,
@@ -42,8 +41,9 @@ import {
 import {getCustomerID, findTotalSpent, findBookings} from './functions';
 
 
-let activeCustomer = {};
 
+
+let activeCustomer = {};
 let customers = null;
 let rooms = null;
 let bookings = null;
@@ -91,8 +91,7 @@ const anchorElement = document.querySelector('.navbar-brand.nav-items');
 
 loginForm.addEventListener("submit", function (event) {
     event.preventDefault();
-
-    if (checkUsername(usernameField.value) && checkPassword(passwordField.value)) {
+      if (checkUsername(usernameField.value) && checkPassword(passwordField.value)) {
         console.log("LOGIN SUCCESS!!!")
         loginForm.remove()
         const customerID = getCustomerID(usernameField.value);
@@ -108,15 +107,10 @@ loginForm.addEventListener("submit", function (event) {
         displayFutureRooms(activeCustomer.pastAndUpcomingBookings.futureBookings)
         console.log(activeCustomer);
         // console.log(bookings)
-        console.log(rooms)
-        // renderUserPage()
-        // populate the main page based on the user who logged in
-        // display total spent on rooms
-        // display current (and past) bookings
+        // console.log(rooms)
     } else {
         console.log("LOGIN FAILURE :(")
     }
-    
     clearLoginFields();
 });
 
@@ -128,8 +122,12 @@ document.addEventListener("click", function(event) {
 })
 
 function displayBookSection() {
-  userDashboard.innerHTML = `<section class="select-by-date">
-  <input class="qs-datepicker-container" type="date">
+  userDashboard.innerHTML = `<section class="select-by-filter">
+  <h2 class="filter-section">FILTERS HERE</h2>
+  
+</section>
+<section class="select-by-date">
+<input class="qs-datepicker-container" type="date">
 </section>
 `
 }
@@ -174,15 +172,7 @@ function displayDashboard() {
   <h4>Your previous bookings:</h4>
   <div class="container text-center">
     <div class="row previous-images">
-     <div class="col">
-        Column
-      </div>
-      <div class="col">
-       Column
-      </div>
-      <div class="col">
-        Column
-      </div>
+
     </div>
   </div>
   </section>
@@ -190,22 +180,15 @@ function displayDashboard() {
   <h4>Your future bookings:</h4>
   <div class="container text-center">
     <div class="row future-images">
-      <div class="col">
-        Column
-      </div>
-      <div class="col">
-        Column
-      </div>
-      <div class="col">
-        Column
-      </div>
+
     </div>
   </div>
 </section> 
-    <footer>
-      <h4 class="total-spent">You have spent ${activeCustomer.totalSpent}</h4>
-    </footer>`;
+<footer>
+  <h4 class="total-spent">You have spent ${activeCustomer.totalSpent}</h4>
+</footer>`;
 }
+
 // function getRoomNumbers(customerBookings) {
 //   const roomNumbers = customerBookings.map((booking) => booking.roomNumber);
 //   return roomNumbers;
