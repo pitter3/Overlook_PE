@@ -266,8 +266,8 @@ function intializeDateInput() {
     const formattedDate = selectedDate.replace(/-/g, '/')
     bookDate = formattedDate;
     displayBookingsSection()
-    const result = findAvailableRooms(formattedDate, bookings, rooms)
-    console.log(result)
+    const availableRooms = findAvailableRooms(formattedDate, bookings, rooms)
+    displayAvailableRooms(availableRooms)
   
   
 
@@ -290,10 +290,27 @@ function displayBookingsSection() {
   userDashboard.innerHTML = `<section class="available-section">
   <h4>Room(s) available on ${bookDate}:</h4>
   <div class="container text-center">
-    <div class="row previous-images">
+    <div class="row available-images">
 
     </div>
   </div>
   </section>`
 }
 
+function displayAvailableRooms(availableRooms) {
+  const row = document.querySelector(".available-images");
+  row.innerHTML = ""; // Clear any existing content in the row
+
+  availableRooms.forEach((room) => {
+    const col = document.createElement("div"); // Create a new div element
+    col.classList.add("col", "bookings-styling");
+    const img = document.createElement("img"); // Create an image element
+    img.src = `./images/Room${room.number}.png`;
+    img.alt = "Bootstrap";
+    img.width = 320;
+    img.height = 180;
+
+    col.appendChild(img); // Append the image to the column
+    row.appendChild(col); // Append the column to the row
+  });
+}
