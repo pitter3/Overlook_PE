@@ -1,5 +1,5 @@
 * {
-   /* border: solid green 1px  */
+   border: solid green 1px 
  } 
 html {
   height: 100%;
@@ -144,7 +144,8 @@ img {
   margin-left: none;
 }
 
-.welcome-message {
-  margin-top: 100px;
-  text-align: center;
+.nav-items {
+  display: flex;
+  justify-content: space-around;
+
 }
