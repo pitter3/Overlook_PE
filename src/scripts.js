@@ -83,6 +83,8 @@ const usernameField = document.querySelector(".username-input");
 const passwordField = document.querySelector(".password-input");
 const userDashboard = document.querySelector(".user-dashboard");
 const loginError = document.querySelector(".form-text");
+const bookButton = document.querySelector(".book-a-room-button")
+const anchorElement = document.querySelector('.navbar-brand.nav-items');
 
 
 
@@ -99,6 +101,7 @@ loginForm.addEventListener("submit", function (event) {
         activeCustomer.bookings = customerBookings
         activeCustomer.totalSpent = findTotalSpent(rooms, activeCustomer.bookings)
         activeCustomer.pastAndUpcomingBookings = splitBookingsByPastAndUpcoming(activeCustomer.bookings)
+        displayBookButton()
         displayDashboard();
         displayPreviousRooms(activeCustomer.pastAndUpcomingBookings.pastBookings)
         displayFutureRooms(activeCustomer.pastAndUpcomingBookings.futureBookings)
@@ -116,7 +119,15 @@ loginForm.addEventListener("submit", function (event) {
     clearLoginFields();
 });
 
+document.addEventListener("click", function(event) {
+  if (event.target.id === 'book-button') {
+    displayBookSection()
+  }
+})
 
+// bookButton.addEventListener("click", function(event) {
+//   console.log("working")
+// })
 
 
 // DOM FUNCTIONS
@@ -241,4 +252,15 @@ function displayFutureRooms(futureBookings) {
 
 function displayPasswordError() {
   loginError.innerText = "Incorrect Password, please try again"
+}
+
+function displayBookButton() {
+  // Create a new button element
+  const newButton = document.createElement('button');
+  newButton.className = 'book-a-room-button';
+  newButton.textContent = 'Book a Room';
+  newButton.id = 'book-button';
+
+  // Append the new button to the anchorElement
+  anchorElement.appendChild(newButton);
 }

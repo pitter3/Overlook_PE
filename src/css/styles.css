@@ -147,5 +147,8 @@ img {
 .nav-items {
   display: flex;
   justify-content: space-around;
+}
 
+.welcome-message {
+  padding-top: 100px;
 }
