@@ -1,5 +1,8 @@
+@import '~js-datepicker/dist/datepicker.min.css';
+
+
 * {
-   border: solid green 1px 
+   /* border: solid green 1px  */
  } 
 html {
   height: 100%;
@@ -152,3 +155,4 @@ img {
 .welcome-message {
   padding-top: 100px;
 }
+

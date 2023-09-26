@@ -27,6 +27,7 @@ import './images/Room22.png';
 import './images/Room23.png';
 import './images/Room24.png';
 import './images/Room25.png';
+import datepicker from 'js-datepicker'
 
 import {orderBy} from 'lodash'
 import {
@@ -264,3 +265,14 @@ function displayBookButton() {
   // Append the new button to the anchorElement
   anchorElement.appendChild(newButton);
 }
+
+const dateInput = document.querySelector('.qs-datepicker-container');
+
+// Add a click event listener to it
+dateInput.addEventListener('change', function() {
+  // Get the selected date value
+  const selectedDate = dateInput.value;
+  const formattedDate = selectedDate.replace(/-/g, '/')
+  // Log the selected date to the console
+  console.log(formattedDate);
+});
