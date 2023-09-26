@@ -122,13 +122,13 @@ loginForm.addEventListener("submit", function (event) {
 
 document.addEventListener("click", function(event) {
   if (event.target.id === 'book-button') {
-    displayBookSection()
+    userDashboard.remove()
   }
 })
 
-// bookButton.addEventListener("click", function(event) {
-//   console.log("working")
-// })
+// function displayBookSection() {
+
+// }
 
 
 // DOM FUNCTIONS
@@ -269,10 +269,27 @@ function displayBookButton() {
 const dateInput = document.querySelector('.qs-datepicker-container');
 
 // Add a click event listener to it
-dateInput.addEventListener('change', function() {
-  // Get the selected date value
-  const selectedDate = dateInput.value;
-  const formattedDate = selectedDate.replace(/-/g, '/')
-  // Log the selected date to the console
-  console.log(formattedDate);
-});
+// dateInput.addEventListener('change', function() {
+//   const selectedDate = dateInput.value;
+//   const formattedDate = selectedDate.replace(/-/g, '/')
+//   console.log(formattedDate);
+
+//   findMatchingDates(formattedDate, bookings)
+// });
+
+function findMatchingDates(date, bookings) {
+  const matches = bookings.filter((booking) => {
+    return booking.date === date
+  })
+ findUnavailableRoomNumbers(matches)
+}
+
+function findUnavailableRoomNumbers(matchingDates) {
+  let rooms = [];
+  matchingDates.forEach((matchingDate) => {
+    if(!rooms.includes(matchingDate.roomNumber)) {
+      rooms.push(matchingDate.roomNumber)
+    }
+  })
+console.log(rooms)
+}
