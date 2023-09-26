@@ -3,6 +3,8 @@
 
 * {
    /* border: solid green 1px  */
+
+
  } 
 html {
   height: 100%;
@@ -102,7 +104,7 @@ nav {
 }
 
 .previous-section {
-  width: 60vw;
+  width: 72vw;
   padding: 8px;
   border: 2px solid var(--bs-primary-border-subtle);
   border-radius: 8px;  
@@ -111,11 +113,12 @@ nav {
 }
 
 .future-section {
-  width: 60vw;
+  width: 72vw;
   padding: 8px;
   border: 2px solid var(--bs-primary-border-subtle);
   border-radius: 8px;
   margin-top: 30px;
+  margin-bottom: 15px;
 }
 
 footer {
@@ -154,6 +157,11 @@ img {
 
 .welcome-message {
   padding-top: 100px;
+  text-align: center;
+}
+
+.total-spent {
+  text-align: center;
 }
 
 
@@ -172,7 +180,7 @@ img {
 }
 
 .available-section {
-    width: 60vw;
+    width: 72vw;
     padding: 8px;
     border: 2px solid var(--bs-primary-border-subtle);
     border-radius: 8px;  
