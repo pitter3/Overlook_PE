@@ -122,13 +122,17 @@ loginForm.addEventListener("submit", function (event) {
 
 document.addEventListener("click", function(event) {
   if (event.target.id === 'book-button') {
-    userDashboard.remove()
+    userDashboard.innerHTML = ""
+    displayBookSection()
   }
 })
 
-// function displayBookSection() {
-
-// }
+function displayBookSection() {
+  userDashboard.innerHTML = `<section class="select-by-date">
+  <input class="qs-datepicker-container" type="date">
+</section>
+`
+}
 
 
 // DOM FUNCTIONS

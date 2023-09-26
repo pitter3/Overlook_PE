@@ -2,7 +2,7 @@
 
 
 * {
-   /* border: solid green 1px  */
+   border: solid green 1px 
  } 
 html {
   height: 100%;
@@ -156,3 +156,10 @@ img {
   padding-top: 100px;
 }
 
+.select-by-date {
+  width: 90vw;
+  height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
