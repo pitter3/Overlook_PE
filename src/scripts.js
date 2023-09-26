@@ -47,6 +47,7 @@ let activeCustomer = {};
 let customers = null;
 let rooms = null;
 let bookings = null;
+let bookDate = null;
 
 Promise.all([getCustomers, getRooms, getBookings])
     .then(([customersData, roomsData, bookingsData]) => {
@@ -118,19 +119,11 @@ document.addEventListener("click", function(event) {
   if (event.target.id === 'book-button') {
     userDashboard.innerHTML = ""
     displayBookSection()
+
   }
 })
 
-function displayBookSection() {
-  userDashboard.innerHTML = `<section class="select-by-filter">
-  <h2 class="filter-section">FILTERS HERE</h2>
-  
-</section>
-<section class="select-by-date">
-<input class="qs-datepicker-container" type="date">
-</section>
-`
-}
+
 
 
 // DOM FUNCTIONS
@@ -248,21 +241,34 @@ function displayBookButton() {
   newButton.className = 'book-a-room-button';
   newButton.textContent = 'Book a Room';
   newButton.id = 'book-button';
-
+  
   // Append the new button to the anchorElement
   anchorElement.appendChild(newButton);
 }
 
-const dateInput = document.querySelector('.qs-datepicker-container');
 
-// Add a click event listener to it
-// dateInput.addEventListener('change', function() {
-//   const selectedDate = dateInput.value;
-//   const formattedDate = selectedDate.replace(/-/g, '/')
-//   console.log(formattedDate);
+function displayBookSection() {
+  userDashboard.innerHTML = `
+  <h4 class="welcome-message">Select a date for your stay</h4>
+  <input class="datepicker" type="date">
+`
+intializeDateInput()
+}
 
-//   findMatchingDates(formattedDate, bookings)
-// });
+function intializeDateInput() {
+  const dateInput = document.querySelector(".datepicker")
+  dateInput.addEventListener('change', function() {
+
+    const selectedDate = dateInput.value;
+    const formattedDate = selectedDate.replace(/-/g, '/')
+    bookDate = formattedDate;
+    displayAvailableRooms()
+    
+    console.log(formattedDate);
+  
+    findMatchingDates(formattedDate, bookings)
+  });
+}
 
 function findMatchingDates(date, bookings) {
   const matches = bookings.filter((booking) => {
@@ -279,4 +285,15 @@ function findUnavailableRoomNumbers(matchingDates) {
     }
   })
 console.log(rooms)
+}
+
+function displayAvailableRooms() {
+  userDashboard.innerHTML = `<section class="available-section">
+  <h4>Room available on ${bookDate}</h4>
+  <div class="container text-center">
+    <div class="row previous-images">
+
+    </div>
+  </div>
+  </section>`
 }

@@ -2,7 +2,7 @@
 
 
 * {
-   border: solid green 1px 
+   /* border: solid green 1px  */
  } 
 html {
   height: 100%;
@@ -156,19 +156,27 @@ img {
   padding-top: 100px;
 }
 
-.select-by-date {
-  width: 60vw;
-  height: 5vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+
 
 .select-by-filter {
   margin-top: 120px;
-  width: 60vw;
+  width: 90vw;
   height: 5vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; 
+  align-items: space-between;
+  justify-content: center; 
 }
+
+.datepicker {
+  margin-top: 8px;
+}
+
+.available-section {
+    width: 60vw;
+    padding: 8px;
+    border: 2px solid var(--bs-primary-border-subtle);
+    border-radius: 8px;  
+    overflow-wrap: break-word;
+    word-break: break-all;
+    margin-top: 100px;
+  }
