@@ -54,6 +54,7 @@ Promise.all([getCustomers, getRooms, getBookings])
         customers = customersData.customers;
         rooms = roomsData.rooms;
         bookings = mergeBookingsWithRooms(bookingsData.bookings, roomsData.rooms)
+        console.log(getRoomTypes(rooms))
     });
 
 
@@ -312,3 +313,14 @@ function displayAvailableRooms(availableRooms) {
     row.appendChild(col); // Append the column to the row
   });
 }
+
+function getRoomTypes(rooms) {
+  return rooms.reduce((acc, currentRoom) => {
+      if (!acc.includes(currentRoom.roomType)) {
+        acc.push(currentRoom.roomType);
+      }
+
+    return acc;
+  }, []);
+}
+
