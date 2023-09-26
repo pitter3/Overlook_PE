@@ -68,11 +68,11 @@ const splitBookingsByPastAndUpcoming = (bookings = []) => {
     today.setMilliseconds(0)
 
     const pastBookings = bookings.filter((booking) => booking.dateObject < today)
-    const upcomingBookings = bookings.filter((booking) => booking.dateObject > today)
+    const futureBookings = bookings.filter((booking) => booking.dateObject > today)
 
     return {
         pastBookings: orderBy(pastBookings, ['dateObject'], ['desc']),
-        upcomingBookings: orderBy(upcomingBookings, ['dateObject'], ['desc']),
+        futureBookings: orderBy(futureBookings, ['dateObject'], ['desc']),
     }
 }
 
@@ -157,7 +157,7 @@ function displayDashboard() {
   <section class="previous-section">
   <h4>Your previous bookings:</h4>
   <div class="container text-center">
-    <div class="row">
+    <div class="row previous-images">
      <div class="col">
         Column
       </div>
@@ -173,7 +173,7 @@ function displayDashboard() {
   <section class="future-section">
   <h4>Your future bookings:</h4>
   <div class="container text-center">
-    <div class="row">
+    <div class="row future-images">
       <div class="col">
         Column
       </div>
@@ -196,26 +196,46 @@ function displayDashboard() {
 // }bo
 
 
-// function displayPreviousRooms(previousBookings) {
-//   const row = document.querySelector(".row");
-//   row.innerHTML = ""; // Clear any existing content in the row
+function displayPreviousRooms(previousBookings) {
+  const row = document.querySelector(".previous-images");
+  row.innerHTML = ""; // Clear any existing content in the row
 
-//   previousBookings.forEach((booking, i) => {
-//     const col = document.createElement("div"); // Create a new div element
-//     col.classList.add("col");
+  previousBookings.forEach((booking) => {
+    const col = document.createElement("div"); // Create a new div element
+    col.classList.add("col", "bookings-styling");
     
-//     const img = document.createElement("img"); // Create an image element
-//     img.src = `./images/Room${i+1}.png`;
-//     img.alt = "Bootstrap";
-//     img.width = 320;
-//     img.height = 180;
+    const img = document.createElement("img"); // Create an image element
+    img.src = `./images/Room${booking.roomNumber}.png`;
+    img.alt = "Bootstrap";
+    img.width = 320;
+    img.height = 180;
 
-//     col.appendChild(img); // Append the image to the column
-//     row.appendChild(col); // Append the column to the row
-//   });
-// }
+    col.appendChild(img); // Append the image to the column
+    row.appendChild(col); // Append the column to the row
+  });
+}
 
-function displayUsernameError() {
+function displayFutureRooms(futureBookings) {
+ console.log(futureBookings)
+  const row = document.querySelector(".future-images");
+  row.innerHTML = ""; // Clear any existing content in the row
+
+  futureBookings.forEach((booking) => {
+    const col = document.createElement("div"); // Create a new div element
+    col.classList.add("col", "bookings-styling");
+    console.log(booking)
+    const img = document.createElement("img"); // Create an image element
+    img.src = `./images/Room${booking.roomNumber}.png`;
+    img.alt = "Bootstrap";
+    img.width = 320;
+    img.height = 180;
+
+    col.appendChild(img); // Append the image to the column
+    row.appendChild(col); // Append the column to the row
+  });
+}
+
+  function displayUsernameError() {
   loginError.innerText = "Incorrect Username, please try again"
 }
 
