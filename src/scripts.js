@@ -166,25 +166,23 @@ function getCustomerName(id) {
 
 function displayDashboard() {
   userDashboard.innerHTML = `<h4 class="welcome-message">Welcome, ${activeCustomer.name}</h4>
-  <section class="previous-section">
-  <h4>Your previous bookings:</h4>
-  <div class="container text-center">
-    <div class="row previous-images">
-
-    </div>
-  </div>
-  </section>
+  <h4 class="total-spent">You have spent ${activeCustomer.totalSpent} with us.</h4>
   <section class="future-section">
-  <h4>Your future bookings:</h4>
+  <h4>You have ${activeCustomer.pastAndUpcomingBookings.futureBookings.length} upcoming bookings:</h4>
   <div class="container text-center">
     <div class="row future-images">
 
     </div>
   </div>
-</section> 
-<footer>
-  <h4 class="total-spent">You have spent ${activeCustomer.totalSpent}</h4>
-</footer>`;
+  </section>
+  <section class="previous-section">
+  <h4>You have ${activeCustomer.pastAndUpcomingBookings.pastBookings.length} previous bookings:</h4>
+  <div class="container text-center">
+    <div class="row previous-images">
+
+    </div>
+  </div>
+</section>`;
 }
 
 // function getRoomNumbers(customerBookings) {
