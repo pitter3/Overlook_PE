@@ -188,3 +188,7 @@ img {
     word-break: break-all;
     margin-top: 100px;
   }
+
+.filter-button {
+  margin-top: 100px;
+}

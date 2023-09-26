@@ -54,7 +54,6 @@ Promise.all([getCustomers, getRooms, getBookings])
         customers = customersData.customers;
         rooms = roomsData.rooms;
         bookings = mergeBookingsWithRooms(bookingsData.bookings, roomsData.rooms)
-        console.log(getRoomTypes(rooms))
     });
 
 
@@ -260,16 +259,14 @@ intializeDateInput()
 function intializeDateInput() {
   const dateInput = document.querySelector(".datepicker")
   dateInput.addEventListener('change', function() {
-
     const selectedDate = dateInput.value;
     const formattedDate = selectedDate.replace(/-/g, '/')
     bookDate = formattedDate;
     displayBookingsSection()
     const availableRooms = findAvailableRooms(formattedDate, bookings, rooms)
     displayAvailableRooms(availableRooms)
-  
-  
-
+    const roomTypes = getRoomTypes(rooms)
+    displayFilters(roomTypes)
   });
 }
 
@@ -316,11 +313,34 @@ function displayAvailableRooms(availableRooms) {
 
 function getRoomTypes(rooms) {
   return rooms.reduce((acc, currentRoom) => {
-      if (!acc.includes(currentRoom.roomType)) {
-        acc.push(currentRoom.roomType);
-      }
-
+    if (!acc.includes(currentRoom.roomType)) {
+      acc.push(currentRoom.roomType);
+    }
     return acc;
   }, []);
 }
 
+function displayFilters(roomTypes) {
+  const filtersContainer = document.createElement('div');
+  filtersContainer.classList.add('filter-container');
+
+  roomTypes.forEach((roomType) => {
+    const filterButton = document.createElement('button');
+    filterButton.classList.add('filter-button');
+    filterButton.textContent = roomType;
+    filtersContainer.appendChild(filterButton);
+  });
+
+  userDashboard.insertBefore(filtersContainer, userDashboard.firstChild);
+}
+
+document.addEventListener("click", function(event) {
+if (event.target.classList.contains("filter-button")) {
+  console.log(event.target.innerText)
+  displayRoomsByType(event.target.innerText)
+}
+})
+
+// function displayRoomsByType {
+
+// }
