@@ -105,6 +105,7 @@ loginForm.addEventListener("submit", function (event) {
         console.log(activeCustomer);
         // console.log(bookings)
         // console.log(rooms)
+
     } else {
         console.log("LOGIN FAILURE :(")
     }
@@ -264,32 +265,55 @@ function intializeDateInput() {
     const selectedDate = dateInput.value;
     const formattedDate = selectedDate.replace(/-/g, '/')
     bookDate = formattedDate;
-    displayAvailableRooms()
-    
-    console.log(formattedDate);
+    displayBookingsSection()
+    const result = findAvailableRooms(formattedDate, bookings, rooms)
+    console.log(result)
   
-    findMatchingDates(formattedDate, bookings)
+  
+
   });
 }
 
-function findMatchingDates(date, bookings) {
-  const matches = bookings.filter((booking) => {
-    return booking.date === date
+function findAvailableRooms(date, bookings, rooms) {
+  return rooms.filter((room) => {
+    return isRoomAvailableOnDate(date, room, bookings)
   })
- findUnavailableRoomNumbers(matches)
 }
 
-function findUnavailableRoomNumbers(matchingDates) {
-  let rooms = [];
-  matchingDates.forEach((matchingDate) => {
-    if(!rooms.includes(matchingDate.roomNumber)) {
-      rooms.push(matchingDate.roomNumber)
-    }
+function isRoomAvailableOnDate(date, room, bookings) {
+  return !bookings.find((booking) => {
+    return booking.date === date && room.number === booking.roomNumber
   })
-console.log(rooms)
 }
 
-function displayAvailableRooms() {
+
+//   const matches = bookings.filter((booking) => {
+//     return booking.date === date
+//   })
+//  matches.forEach((match) => {
+//   console.log(match.room)
+
+// look at all 25 rooms
+// use unavail rooms as param
+// remove unavail rooms
+// return avail 
+
+
+// function findUnavailableRoomNumbers(matchingDates) {
+//   let unavailableRooms = [];
+//   matchingDates.forEach((matchingDate) => {
+//     if(!rooms.includes(matchingDate.roomNumber)) {
+//       rooms.push(matchingDate.roomNumber)
+//     }
+//   })
+// console.log(unavailableRooms)
+// displayAvailableRooms(unavailableRooms, rooms)
+// }
+
+
+
+
+function displayBookingsSection() {
   userDashboard.innerHTML = `<section class="available-section">
   <h4>Room available on ${bookDate}:</h4>
   <div class="container text-center">
@@ -298,4 +322,8 @@ function displayAvailableRooms() {
     </div>
   </div>
   </section>`
+}
+
+function displayAvailableRooms (unavail, rooms) {
+
 }
