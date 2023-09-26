@@ -286,36 +286,9 @@ function isRoomAvailableOnDate(date, room, bookings) {
   })
 }
 
-
-//   const matches = bookings.filter((booking) => {
-//     return booking.date === date
-//   })
-//  matches.forEach((match) => {
-//   console.log(match.room)
-
-// look at all 25 rooms
-// use unavail rooms as param
-// remove unavail rooms
-// return avail 
-
-
-// function findUnavailableRoomNumbers(matchingDates) {
-//   let unavailableRooms = [];
-//   matchingDates.forEach((matchingDate) => {
-//     if(!rooms.includes(matchingDate.roomNumber)) {
-//       rooms.push(matchingDate.roomNumber)
-//     }
-//   })
-// console.log(unavailableRooms)
-// displayAvailableRooms(unavailableRooms, rooms)
-// }
-
-
-
-
 function displayBookingsSection() {
   userDashboard.innerHTML = `<section class="available-section">
-  <h4>Room available on ${bookDate}:</h4>
+  <h4>Room(s) available on ${bookDate}:</h4>
   <div class="container text-center">
     <div class="row previous-images">
 
@@ -324,6 +297,3 @@ function displayBookingsSection() {
   </section>`
 }
 
-function displayAvailableRooms (unavail, rooms) {
-
-}
