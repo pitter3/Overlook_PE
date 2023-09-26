@@ -97,11 +97,7 @@ loginForm.addEventListener("submit", function (event) {
         loginForm.remove()
         const customerID = getCustomerID(usernameField.value);
         const customerBookings = findBookings(customerID, bookings)
-        activeCustomer.name = getCustomerName(customerID);
-        activeCustomer.id = customerID
-        activeCustomer.bookings = customerBookings
-        activeCustomer.totalSpent = findTotalSpent(rooms, activeCustomer.bookings)
-        activeCustomer.pastAndUpcomingBookings = splitBookingsByPastAndUpcoming(activeCustomer.bookings)
+        initializeCustomer(customerID, customerBookings)
         displayBookButton()
         displayDashboard();
         displayPreviousRooms(activeCustomer.pastAndUpcomingBookings.pastBookings)
@@ -114,6 +110,14 @@ loginForm.addEventListener("submit", function (event) {
     }
     clearLoginFields();
 });
+
+function initializeCustomer (customerID, customerBookings) {
+  activeCustomer.name = getCustomerName(customerID);
+  activeCustomer.id = customerID
+  activeCustomer.bookings = customerBookings
+  activeCustomer.totalSpent = findTotalSpent(rooms, activeCustomer.bookings)
+  activeCustomer.pastAndUpcomingBookings = splitBookingsByPastAndUpcoming(activeCustomer.bookings)
+}
 
 document.addEventListener("click", function(event) {
   if (event.target.id === 'book-button') {
@@ -208,14 +212,12 @@ function displayPreviousRooms(previousBookings) {
 }
 
 function displayFutureRooms(futureBookings) {
- console.log(futureBookings)
   const row = document.querySelector(".future-images");
   row.innerHTML = ""; // Clear any existing content in the row
 
   futureBookings.forEach((booking) => {
     const col = document.createElement("div"); // Create a new div element
     col.classList.add("col", "bookings-styling");
-    console.log(booking)
     const img = document.createElement("img"); // Create an image element
     img.src = `./images/Room${booking.roomNumber}.png`;
     img.alt = "Bootstrap";
@@ -289,7 +291,7 @@ console.log(rooms)
 
 function displayAvailableRooms() {
   userDashboard.innerHTML = `<section class="available-section">
-  <h4>Room available on ${bookDate}</h4>
+  <h4>Room available on ${bookDate}:</h4>
   <div class="container text-center">
     <div class="row previous-images">
 
