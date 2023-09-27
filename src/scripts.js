@@ -50,7 +50,7 @@ import {
 } from "./elements";
 
 
-const DEVELOP = true;
+const DEVELOP = false;
 
 // STATE
 
