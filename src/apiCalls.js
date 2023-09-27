@@ -3,7 +3,7 @@ import { findBookings } from "./functions";
 // FETCH REQUESTS
 
 export const getCustomers = 
-fetch('overlook-api-eight.vercel.app/api/v1/customers')
+fetch('http://overlook-api-eight.vercel.app/api/v1/customers')
 .then((response) => {
   if (!response.ok) {
     throw new Error(`Fetch failure, STATUS CODE: ${response.status}`);
@@ -17,7 +17,7 @@ fetch('overlook-api-eight.vercel.app/api/v1/customers')
 
 
 export const getRooms = 
-fetch('overlook-api-eight.vercel.app/api/v1/rooms')
+fetch('http://overlook-api-eight.vercel.app/api/v1/rooms')
 .then((response) => {
   if (!response.ok) {
     throw new Error(`Fetch failure, status code: ${response.status}`);
@@ -31,7 +31,7 @@ fetch('overlook-api-eight.vercel.app/api/v1/rooms')
 
 
 export const getSingleCustomer = (customerID) => 
-  fetch(`overlook-api-eight.vercel.app/api/v1/customers/${customerID}`)
+  fetch(`http://overlook-api-eight.vercel.app/api/v1/customers/${customerID}`)
   .then((response) => {
     if (!response.ok) {
       throw new Error(`Fetch failure: ${response.status}`);
@@ -45,7 +45,7 @@ export const getSingleCustomer = (customerID) =>
 
 
 export const getBookings = 
-fetch('overlook-api-eight.vercel.app/api/v1/bookings')
+fetch('http://overlook-api-eight.vercel.app/api/v1/bookings')
 .then((response) => {
   if (!response.ok) {
     throw new Error(`Fetch failure, status code: ${response.status}`);
@@ -59,7 +59,7 @@ fetch('overlook-api-eight.vercel.app/api/v1/bookings')
 
 
 export const postBooking = (user, date, room) => {
-  return fetch("overlook-api-eight.vercel.app/api/v1/bookings", {
+  return fetch("http://overlook-api-eight.vercel.app/api/v1/bookings", {
     method: 'POST',
     body: JSON.stringify({
       userID: user.id,
@@ -84,7 +84,7 @@ export const postBooking = (user, date, room) => {
 
 
 export const deleteBooking = (bookingID) => {
-  return fetch(`overlook-api-eight.vercel.app/api/v1/bookings/${bookingID}`, {
+  return fetch(`http://overlook-api-eight.vercel.app/api/v1/bookings/${bookingID}`, {
     method: 'DELETE',
     headers: {
         'Content-Type': 'application/json'

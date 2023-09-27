@@ -25282,7 +25282,7 @@ __webpack_require__.r(__webpack_exports__);
 // FETCH REQUESTS
 
 const getCustomers = 
-fetch('http://localhost:3001/api/v1/customers')
+fetch('overlook-api-eight.vercel.app/api/v1/customers')
 .then((response) => {
   if (!response.ok) {
     throw new Error(`Fetch failure, STATUS CODE: ${response.status}`);
@@ -25296,7 +25296,7 @@ fetch('http://localhost:3001/api/v1/customers')
 
 
 const getRooms = 
-fetch('http://localhost:3001/api/v1/rooms')
+fetch('overlook-api-eight.vercel.app/api/v1/rooms')
 .then((response) => {
   if (!response.ok) {
     throw new Error(`Fetch failure, status code: ${response.status}`);
@@ -25310,7 +25310,7 @@ fetch('http://localhost:3001/api/v1/rooms')
 
 
 const getSingleCustomer = (customerID) => 
-  fetch(`http://localhost:3001/api/v1/customers/${customerID}`)
+  fetch(`overlook-api-eight.vercel.app/api/v1/customers/${customerID}`)
   .then((response) => {
     if (!response.ok) {
       throw new Error(`Fetch failure: ${response.status}`);
@@ -25324,7 +25324,7 @@ const getSingleCustomer = (customerID) =>
 
 
 const getBookings = 
-fetch('http://localhost:3001/api/v1/bookings')
+fetch('overlook-api-eight.vercel.app/api/v1/bookings')
 .then((response) => {
   if (!response.ok) {
     throw new Error(`Fetch failure, status code: ${response.status}`);
@@ -25338,7 +25338,7 @@ fetch('http://localhost:3001/api/v1/bookings')
 
 
 const postBooking = (user, date, room) => {
-  return fetch("http://localhost:3001/api/v1/bookings", {
+  return fetch("overlook-api-eight.vercel.app/api/v1/bookings", {
     method: 'POST',
     body: JSON.stringify({
       userID: user.id,
@@ -25363,7 +25363,7 @@ const postBooking = (user, date, room) => {
 
 
 const deleteBooking = (bookingID) => {
-  return fetch(`http://localhost:3001/api/v1/bookings/${bookingID}`, {
+  return fetch(`overlook-api-eight.vercel.app/api/v1/bookings/${bookingID}`, {
     method: 'DELETE',
     headers: {
         'Content-Type': 'application/json'
