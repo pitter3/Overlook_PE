@@ -30,89 +30,113 @@ import './images/Room25.png';
 import datepicker from 'js-datepicker'
 import {orderBy} from 'lodash'
 import {
-    getCustomers,
-    getRooms,
-    getSingleCustomer,
-    getBookings,
-    postBooking,
-    deleteBooking,
-    getBookingsByID,
+  getCustomers,
+  getRooms,
+  getSingleCustomer,
+  getBookings,
+  postBooking,
+  deleteBooking,
+  getBookingsByID,
 } from './apiCalls.js';
 import {getCustomerID, findTotalSpent, findBookings} from './functions';
+import {
+  createAvailableRoomsSection,
+  createBookingDateSection,
+  createBookingDialog,
+  createBookingsSection,
+  createCheckbox,
+  createCustomerInfoSection,
+  createRoomImageTile
+} from "./elements";
 
 
+const DEVELOP = true;
+
+// STATE
 
 
 let activeCustomer = {};
-let customers = null;
-let rooms = null;
-let bookings = null;
+
+let rooms = [];
+let bookings = [];
+let customers = [];
+let roomTypes = [];
+let filteredRooms = [];
+let availableRooms = [];
+let checkedRoomTypes = []
+
 let bookDate = null;
 
-Promise.all([getCustomers, getRooms, getBookings])
-    .then(([customersData, roomsData, bookingsData]) => {
-        customers = customersData.customers;
-        rooms = roomsData.rooms;
-        bookings = mergeBookingsWithRooms(bookingsData.bookings, roomsData.rooms)
-    });
-
-
-const mergeBookingsWithRooms = (bookings = [], rooms = []) => bookings.map((booking) => ({
-    ...booking,
-    dateObject: new Date(booking.date),
-    room: rooms.find((room) => room.number === booking.roomNumber)
-    }))
-
-const splitBookingsByPastAndUpcoming = (bookings = []) => {
-    const today = new Date()
-    today.setHours(0)
-    today.setMinutes(0)
-    today.setMilliseconds(0)
-
-    const pastBookings = bookings.filter((booking) => booking.dateObject < today)
-    const futureBookings = bookings.filter((booking) => booking.dateObject > today)
-
-    return {
-        pastBookings: orderBy(pastBookings, ['dateObject'], ['desc']),
-        futureBookings: orderBy(futureBookings, ['dateObject'], ['desc']),
-    }
-}
 
 // QUERY SELECTORS
 
+const sideBar = document.querySelector('.side-bar');
+sideBar.classList.add('hidden')
+
+const mainContentContainer = document.querySelector(".main-content");
+mainContentContainer.classList.add('no-sidebar')
+
 const loginForm = document.querySelector(".login-form");
+const loginError = document.querySelector(".form-text");
 const usernameField = document.querySelector(".username-input");
 const passwordField = document.querySelector(".password-input");
-const userDashboard = document.querySelector(".user-dashboard");
-const loginError = document.querySelector(".form-text");
-const bookButton = document.querySelector(".book-a-room-button")
 const anchorElement = document.querySelector('.navbar-brand.nav-items');
 
 
+const renderSideBar = () => {
+  if (!bookDate) {
+    sideBar.classList.add('hidden')
+    mainContentContainer.classList.add('no-sidebar')
+  } else {
+    sideBar.classList.remove('hidden')
+    mainContentContainer.classList.remove('no-sidebar')
+  }
+}
 
-loginForm.addEventListener("submit", function (event) {
-    event.preventDefault();
-      if (checkUsername(usernameField.value) && checkPassword(passwordField.value)) {
-        console.log("LOGIN SUCCESS!!!")
-        loginForm.remove()
-        const customerID = getCustomerID(usernameField.value);
-        const customerBookings = findBookings(customerID, bookings)
-        initializeCustomer(customerID, customerBookings)
-        displayBookButton()
-        displayDashboard();
-        displayPreviousRooms(activeCustomer.pastAndUpcomingBookings.pastBookings)
-        displayFutureRooms(activeCustomer.pastAndUpcomingBookings.futureBookings)
-        console.log(activeCustomer);
-        // console.log(bookings)
-        // console.log(rooms)
+Promise.all([getCustomers, getRooms, getBookings])
+  .then(([customersData, roomsData, bookingsData]) => {
+    customers = customersData.customers;
+    rooms = roomsData.rooms;
+    bookings = mergeBookingsWithRooms(bookingsData.bookings, roomsData.rooms)
+    roomTypes = extractRoomTypes(rooms)
 
-    } else {
-        console.log("LOGIN FAILURE :(")
+    // toggleSideBar()
+
+    if (DEVELOP) {
+      initDataPostLogin("customer1")
+      loginForm.remove()
     }
-    clearLoginFields();
-});
+  });
 
-function initializeCustomer (customerID, customerBookings) {
+const extractRoomTypes = (rooms) => {
+  const roomTypes = rooms.map(room => room.roomType)
+  const uniqueRoomTypes = new Set(roomTypes)
+  return Array.from(uniqueRoomTypes)
+}
+
+
+const mergeBookingsWithRooms = (bookings = [], rooms = []) => bookings.map((booking) => ({
+  ...booking,
+  dateObject: new Date(booking.date),
+  room: rooms.find((room) => room.number === booking.roomNumber)
+}))
+
+const splitBookingsByPastAndUpcoming = (bookings = []) => {
+  const today = new Date()
+  today.setHours(0)
+  today.setMinutes(0)
+  today.setMilliseconds(0)
+
+  const pastBookings = bookings.filter((booking) => booking.dateObject < today)
+  const upcomingBookings = bookings.filter((booking) => booking.dateObject > today)
+
+  return {
+    pastBookings: orderBy(pastBookings, ['dateObject'], ['desc']),
+    upcomingBookings: orderBy(upcomingBookings, ['dateObject'], ['desc']),
+  }
+}
+
+function initializeCustomer(customerID, customerBookings) {
   activeCustomer.name = getCustomerName(customerID);
   activeCustomer.id = customerID
   activeCustomer.bookings = customerBookings
@@ -120,115 +144,141 @@ function initializeCustomer (customerID, customerBookings) {
   activeCustomer.pastAndUpcomingBookings = splitBookingsByPastAndUpcoming(activeCustomer.bookings)
 }
 
-document.addEventListener("click", function(event) {
-  if (event.target.id === 'book-button') {
-    userDashboard.innerHTML = ""
-    displayBookSection()
+const initDataPostLogin = (username) => {
+  const customerID = getCustomerID(username);
+  const customerBookings = findBookings(customerID, bookings)
+
+
+  // const modal = createBookingModal()
+  // console.log(modal);
+
+  initializeCustomer(customerID, customerBookings)
+  displayBookButton()
+  displayDashboard();
+
+  createBookingsSection(activeCustomer, 'past', activeCustomer.pastAndUpcomingBookings.pastBookings.length)
+  displayPastRooms(activeCustomer.pastAndUpcomingBookings.pastBookings)
+  displayUpcomingRooms(activeCustomer.pastAndUpcomingBookings.upcomingBookings, activeCustomer.pastAndUpcomingBookings.pastBookings.length)
+}
+
+loginForm.addEventListener("submit", function (event) {
+  event.preventDefault();
+  if (checkUsername(usernameField.value) && checkPassword(passwordField.value)) {
+    initDataPostLogin(usernameField.value);
+
+    console.log(loginForm)
+    loginForm.remove()
 
   }
-})
+
+  clearLoginFields();
+});
 
 
+document.addEventListener("click", function (event) {
+  if (event.target.id === 'book-button') {
+    mainContentContainer.innerHTML = ""
+    mainContentContainer.appendChild(createBookingDateSection())
+    initializeDateInput()
+
+    roomTypes.forEach((roomType) => {
+      const checkbox = createCheckbox(roomType, roomType)
+
+      checkbox.addEventListener('change', function (event) {
+        const checked = event.target.checked;
+
+        if (checked) {
+          checkedRoomTypes.push(event.target.id)
+        } else {
+          checkedRoomTypes = checkedRoomTypes.filter((roomType) => roomType !== event.target.id)
+        }
+
+        displayAvailableRooms()
+      })
+
+      sideBar.appendChild(checkbox);
+    });
+  }
+});
 
 
 // DOM FUNCTIONS
 
 function clearLoginFields() {
-    usernameField.value = "";
-    passwordField.value = "";
+  usernameField.value = "";
+  passwordField.value = "";
 };
 
 const checkUsername = (username) => {
-    const match = username.match(/^customer([1-9]|[1-4][0-9]|50)$/);
-    if (match) {
-        return true;
-    } else {
-      displayUsernameError()
-      return false
-    }
+  const match = username.match(/^customer([1-9]|[1-4][0-9]|50)$/);
+  if (match) {
+    return true;
+  } else {
+    displayUsernameError()
+    return false
+  }
 };
 
 const checkPassword = (password) => {
-    if (password === "overlook2021") {
-        return true
-    } else {
-        displayPasswordError()
-        return false
-    }
+  if (password === "overlook2021") {
+    return true
+  } else {
+    displayPasswordError()
+    return false
+  }
 };
 
 function getCustomerName(id) {
-    const customer = customers.find((customer) => {
-        return customer.id === id;
-    });
-    return customer.name;
+  const customer = customers.find((customer) => {
+    return customer.id === id;
+  });
+  return customer.name;
 }
 
 function displayDashboard() {
-  userDashboard.innerHTML = `<h4 class="welcome-message">Welcome, ${activeCustomer.name}</h4>
-  <h4 class="total-spent">You have spent ${activeCustomer.totalSpent} with us.</h4>
-  <section class="future-section">
-  <h4>You have ${activeCustomer.pastAndUpcomingBookings.futureBookings.length} upcoming bookings:</h4>
-  <div class="container text-center">
-    <div class="row future-images">
-
-    </div>
-  </div>
-  </section>
-  <section class="previous-section">
-  <h4>You have ${activeCustomer.pastAndUpcomingBookings.pastBookings.length} previous bookings:</h4>
-  <div class="container text-center">
-    <div class="row previous-images">
-
-    </div>
-  </div>
-</section>`;
+  mainContentContainer.appendChild(createCustomerInfoSection(activeCustomer))
 }
 
-// function getRoomNumbers(customerBookings) {
-//   const roomNumbers = customerBookings.map((booking) => booking.roomNumber);
-//   return roomNumbers;
-// }bo
-
-
-function displayPreviousRooms(previousBookings) {
-  const row = document.querySelector(".previous-images");
-  row.innerHTML = ""; // Clear any existing content in the row
-
-  previousBookings.forEach((booking) => {
-    const col = document.createElement("div"); // Create a new div element
-    col.classList.add("col", "bookings-styling");
-    
-    const img = document.createElement("img"); // Create an image element
-    img.src = `./images/Room${booking.roomNumber}.png`;
-    img.alt = "Bootstrap";
-    img.width = 320;
-    img.height = 180;
-
-    col.appendChild(img); // Append the image to the column
-    row.appendChild(col); // Append the column to the row
-  });
+function displayPastRooms(pastBookings) {
+  const pastImagesSection = document.querySelector(".past-images");
+  pastBookings
+    .forEach((booking, index) => pastImagesSection.appendChild(createRoomImageTile(booking.roomNumber, index)));
 }
 
-function displayFutureRooms(futureBookings) {
-  const row = document.querySelector(".future-images");
-  row.innerHTML = ""; // Clear any existing content in the row
-
-  futureBookings.forEach((booking) => {
-    const col = document.createElement("div"); // Create a new div element
-    col.classList.add("col", "bookings-styling");
-    const img = document.createElement("img"); // Create an image element
-    img.src = `./images/Room${booking.roomNumber}.png`;
-    img.alt = "Bootstrap";
-    img.width = 320;
-    img.height = 180;
-
-    col.appendChild(img); // Append the image to the column
-    row.appendChild(col); // Append the column to the row
-  });
+function displayUpcomingRooms(upcomingBookings, startIndex) {
+  const upcomingImagesSection = document.querySelector(".upcoming-images");
+  upcomingBookings
+    .forEach((booking, index) => upcomingImagesSection.appendChild(createRoomImageTile(booking.roomNumber, startIndex + index)));
 }
 
-  function displayUsernameError() {
+const displayAvailableRooms = () => {
+  const availableImagesSection = document.querySelector(".available-images");
+  availableImagesSection.innerHTML = ""
+  filteredRooms = availableRooms
+
+  if (checkedRoomTypes.length > 0) {
+    filteredRooms = availableRooms.filter((room) => checkedRoomTypes.includes(room.roomType))
+  }
+
+  filteredRooms
+    .forEach((room) => {
+      const image = createRoomImageTile(room.number)
+
+      image.addEventListener('click', e => {
+        const selectedRoom = rooms.find(room => `${room.number}` === e.target.id)
+
+        const dialog = createBookingDialog(selectedRoom, activeCustomer, bookDate)
+        mainContentContainer.appendChild(dialog)
+
+        dialog.showModal()
+      })
+
+      availableImagesSection.appendChild(image);
+    });
+};
+
+
+function displayUsernameError() {
   loginError.innerText = "Incorrect Username, please try again"
 }
 
@@ -242,31 +292,29 @@ function displayBookButton() {
   newButton.className = 'book-a-room-button';
   newButton.textContent = 'Book a Room';
   newButton.id = 'book-button';
-  
+
   // Append the new button to the anchorElement
   anchorElement.appendChild(newButton);
 }
 
 
-function displayBookSection() {
-  userDashboard.innerHTML = `
-  <h4 class="welcome-message">Select a date for your stay</h4>
-  <input class="datepicker" type="date">
-`
-intializeDateInput()
+function displayAvailableRoomsSection() {
+  document.querySelector('.available-section')?.remove()
+  mainContentContainer.appendChild(createAvailableRoomsSection(bookDate))
 }
 
-function intializeDateInput() {
+function initializeDateInput() {
   const dateInput = document.querySelector(".datepicker")
-  dateInput.addEventListener('change', function() {
+  dateInput.addEventListener('change', function () {
     const selectedDate = dateInput.value;
     const formattedDate = selectedDate.replace(/-/g, '/')
+
     bookDate = formattedDate;
-    displayBookingsSection()
-    const availableRooms = findAvailableRooms(formattedDate, bookings, rooms)
-    displayAvailableRooms(availableRooms)
-    const roomTypes = getRoomTypes(rooms)
-    displayFilters(roomTypes)
+    availableRooms = findAvailableRooms(formattedDate, bookings, rooms)
+
+    displayAvailableRoomsSection()
+    displayAvailableRooms()
+    renderSideBar()
   });
 }
 
@@ -282,65 +330,4 @@ function isRoomAvailableOnDate(date, room, bookings) {
   })
 }
 
-function displayBookingsSection() {
-  userDashboard.innerHTML = `<section class="available-section">
-  <h4>Room(s) available on ${bookDate}:</h4>
-  <div class="container text-center">
-    <div class="row available-images">
 
-    </div>
-  </div>
-  </section>`
-}
-
-function displayAvailableRooms(availableRooms) {
-  const row = document.querySelector(".available-images");
-  row.innerHTML = ""; // Clear any existing content in the row
-
-  availableRooms.forEach((room) => {
-    const col = document.createElement("div"); // Create a new div element
-    col.classList.add("col", "bookings-styling");
-    const img = document.createElement("img"); // Create an image element
-    img.src = `./images/Room${room.number}.png`;
-    img.alt = "Bootstrap";
-    img.width = 320;
-    img.height = 180;
-
-    col.appendChild(img); // Append the image to the column
-    row.appendChild(col); // Append the column to the row
-  });
-}
-
-function getRoomTypes(rooms) {
-  return rooms.reduce((acc, currentRoom) => {
-    if (!acc.includes(currentRoom.roomType)) {
-      acc.push(currentRoom.roomType);
-    }
-    return acc;
-  }, []);
-}
-
-function displayFilters(roomTypes) {
-  const filtersContainer = document.createElement('div');
-  filtersContainer.classList.add('filter-container');
-
-  roomTypes.forEach((roomType) => {
-    const filterButton = document.createElement('button');
-    filterButton.classList.add('filter-button');
-    filterButton.textContent = roomType;
-    filtersContainer.appendChild(filterButton);
-  });
-
-  userDashboard.insertBefore(filtersContainer, userDashboard.firstChild);
-}
-
-document.addEventListener("click", function(event) {
-if (event.target.classList.contains("filter-button")) {
-  console.log(event.target.innerText)
-  displayRoomsByType(event.target.innerText)
-}
-})
-
-// function displayRoomsByType {
-
-// }
