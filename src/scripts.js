@@ -100,7 +100,6 @@ Promise.all([getCustomers, getRooms, getBookings])
     bookings = mergeBookingsWithRooms(bookingsData.bookings, roomsData.rooms)
     roomTypes = extractRoomTypes(rooms)
 
-    // toggleSideBar()
 
     if (DEVELOP) {
       initDataPostLogin("customer1")
@@ -114,6 +113,8 @@ const extractRoomTypes = (rooms) => {
   return Array.from(uniqueRoomTypes)
 }
 
+
+// ENRICH DATA
 
 const mergeBookingsWithRooms = (bookings = [], rooms = []) => bookings.map((booking) => ({
   ...booking,
@@ -147,15 +148,9 @@ function initializeCustomer(customerID, customerBookings) {
 const initDataPostLogin = (username) => {
   const customerID = getCustomerID(username);
   const customerBookings = findBookings(customerID, bookings)
-
-
-  // const modal = createBookingModal()
-  // console.log(modal);
-
   initializeCustomer(customerID, customerBookings)
   displayBookButton()
   displayDashboard();
-
   createBookingsSection(activeCustomer, 'past', activeCustomer.pastAndUpcomingBookings.pastBookings.length)
   displayPastRooms(activeCustomer.pastAndUpcomingBookings.pastBookings)
   displayUpcomingRooms(activeCustomer.pastAndUpcomingBookings.upcomingBookings, activeCustomer.pastAndUpcomingBookings.pastBookings.length)
@@ -165,12 +160,9 @@ loginForm.addEventListener("submit", function (event) {
   event.preventDefault();
   if (checkUsername(usernameField.value) && checkPassword(passwordField.value)) {
     initDataPostLogin(usernameField.value);
-
-    console.log(loginForm)
+    console.log(activeCustomer)
     loginForm.remove()
-
   }
-
   clearLoginFields();
 });
 

@@ -1,11 +1,7 @@
 @import '~js-datepicker/dist/datepicker.min.css';
 
 
-* {
-   /* border: solid green 1px  */
 
-
- } 
 
 html {
   height: 100%;
@@ -100,14 +96,6 @@ nav {
   border-radius: 8px;  
   word-break: break-all;
   margin: 32px;
-}
-
-.upcoming-section {
-  /*padding: 8px;*/
-  /*border: 2px solid var(--bs-primary-border-subtle);*/
-  /*border-radius: 8px;*/
-  /*margin-top: 30px;*/
-
 }
 
 footer {

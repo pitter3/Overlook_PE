@@ -103,6 +103,7 @@ export const createBookingDateSection = () => {
   const welcomeMessage = document.createElement("h4");
   welcomeMessage.classList.add("welcome-message");
 
+
   const datePicker = document.createElement("input");
   datePicker.classList.add("datepicker");
   datePicker.setAttribute("type", "date");
@@ -164,7 +165,5 @@ export const createBookingDialog = (room, user, date,) => {
     postBooking(user, date, room)
       .then(() => modal.close())
   });
-
-
   return modal
 }
